@@ -3,6 +3,12 @@
     top: 8px;
     right: 19px;
     width: 18px;
+    background-image: url(../../../images/EditButton.svg);
+    height: 18px;
+    background-color: black;
+    background-size: cover;
+    padding: 0;
+    border: none;
 }
 
 @media (min-width: 1024px) {
@@ -10,5 +16,6 @@
         top: 15px;
         right: 0;
         width: 24px;
+        height: 24px;
     }
 }
