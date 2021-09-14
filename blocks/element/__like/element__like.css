@@ -9,3 +9,15 @@
     border: none;
     background-color: white;
 }
+
+.element__like:hover {
+    opacity: 50%;
+  }
+
+  .element__like:active {
+    background-image: url(../../../images/activelike.svg);
+  }
+
+  .element__like:active:hover {
+    opacity: 100%;
+  }
