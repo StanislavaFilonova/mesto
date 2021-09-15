@@ -4,10 +4,11 @@
   max-width: 20px;
   max-height: 20px;
   height: 100%;
-  background-image: url(../../../images/CloseIcon.svg);
+  background-image: url(../../../images/CloseIconMobile.svg);
   cursor: pointer;
   position: relative;
-
+  top: -185px;
+  left: 130px;
   border: none;
   text-decoration: none;
   background-color: transparent;
@@ -17,9 +18,12 @@
   opacity: 60%;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 1024px) {
   .popup__close {
     max-width: 32px;
     max-height: 32px;
+    background-image: url(../../../images/CloseIcon.svg);
+    top: -200px;
+    left: 230px;
   }
 }

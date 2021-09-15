@@ -5,8 +5,15 @@
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.6); /* для наглядности затемнение*/
-  display: flex; /*?*/
-  align-items: center; /*?*/
-  justify-content: center; /*?*/
+  display: none;
+  align-items: center;
+  justify-content: center;
   z-index: 999;
+  margin-top: -140px;
+}
+
+@media (min-width: 1024px) {
+  .popup {
+    margin-top: -360px;
+  }
 }
