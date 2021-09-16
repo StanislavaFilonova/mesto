@@ -1,23 +1,23 @@
 .element__like {
-    width: 22px;
-    cursor: pointer;
-    background-image: url(../../../images/like.svg);
-    color: black;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    border: none;
-    background-color: white;
+  width: 22px;
+  cursor: pointer;
+  background-image: url(../../../images/like.svg);
+  color: black;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: none;
+  background-color: white;
 }
 
 .element__like:hover {
-    opacity: 50%;
-  }
+  opacity: 50%;
+}
 
-  .element__like:active {
-    background-image: url(../../../images/activelike.svg);
-  }
+.element__like:active {
+  background-image: url(../../../images/activelike.svg);
+}
 
-  .element__like:active:hover {
-    opacity: 100%;
-  }
+.element__like:active:hover {
+  opacity: 100%;
+}

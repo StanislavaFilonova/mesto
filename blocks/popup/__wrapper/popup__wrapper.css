@@ -1,14 +1,14 @@
 .popup__wrapper {
-    position: absolute;
-    width: 100%;
-    max-width: 282px;
-    height: 100%;
-    max-height: 322px;
+  position: absolute;
+  width: 100%;
+  max-width: 282px;
+  height: 100%;
+  max-height: 322px;
 }
 
 @media (min-width: 1024px) {
-    .popup__wrapper {
-        max-width: 430px;
-        max-height: 330px;
-    }
+  .popup__wrapper {
+    max-width: 430px;
+    max-height: 330px;
+  }
 }
