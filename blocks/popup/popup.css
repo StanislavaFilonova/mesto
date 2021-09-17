@@ -9,11 +9,10 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
-  margin-top: -140px;
 }
 
-@media (min-width: 1024px) {
+/*@media (min-width: 1024px) {
   .popup {
     margin-top: -360px;
   }
-}
+}*/

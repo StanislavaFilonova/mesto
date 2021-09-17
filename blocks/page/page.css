@@ -5,4 +5,5 @@
   background-color: #000000;
   color: white;
   margin: 0 auto;
+  min-height: 100vh;
 }
