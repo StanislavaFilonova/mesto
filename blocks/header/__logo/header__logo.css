@@ -1,7 +1,7 @@
 .header__logo {
   margin: 0;
   max-width: 104px;
-  padding-left: 27px;
+  padding-left: 8px;
   padding-bottom: 31px;
 }
 
@@ -15,15 +15,15 @@
   .header__logo {
     max-width: 130px;
     padding-bottom: 34px;
-    padding-left: 63px;
+    padding-left: 30px;
   }
 }
 
 @media (min-width: 1024px) {
   .header__logo {
     max-width: 135px;
-    padding-left: 0;
     padding-bottom: 41px;
+    padding-left: 0;
   }
 }
 
