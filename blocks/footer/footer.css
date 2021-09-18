@@ -5,14 +5,14 @@
 }
 
 @media (min-width: 768px) {
-    .footer {
-        padding: 67px 0 58px;
-        max-width:  720px;;
-    }
+  .footer {
+    padding: 67px 0 58px;
+    max-width: 720px;
+  }
 }
 
 @media (min-width: 1024px) {
-    .footer {
-        max-width:  880px;;
-    }
+  .footer {
+    max-width: 880px;
+  }
 }

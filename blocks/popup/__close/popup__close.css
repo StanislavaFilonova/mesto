@@ -6,9 +6,9 @@
   height: 100%;
   background-image: url(../../../images/CloseIconMobile.svg);
   cursor: pointer;
-  position: relative;
-  top: -185px;
-  left: 130px;
+  position: absolute;
+  top: -40px;
+  right: 0;
   border: none;
   text-decoration: none;
   background-color: transparent;
@@ -23,7 +23,5 @@
     max-width: 32px;
     max-height: 32px;
     background-image: url(../../../images/CloseIcon.svg);
-    top: -200px;
-    left: 230px;
   }
 }
