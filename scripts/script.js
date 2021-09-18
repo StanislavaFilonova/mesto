@@ -1,14 +1,38 @@
+const popup = document.querySelector('.popup');
+const popupOpenBtn = document.querySelector('.profile__edit-button');
+const popupCloseBtn = popup.querySelector('.popup__close');
 
-// function test (ev) {
-//     ev.stopPropagation();
-//     let newWin = window.open("about:blank", "hello", "width=200,height=200");
-//     newWin.document.write("Привет, мир!");
-// };
+// Находим форму в DOM
+let formElement = document.querySelector('.popup__form');
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     let btn = document.getElementsByClassName("profile__add-button")[0]; // div с кнопкой "+"
-//     btn.addEventListener("click", test);
-// });
+// Находим поля формы в DOM
+let nameInput = document.querySelector('.popup__name');
+let jobInput = document.querySelector('.popup__occupation');
 
+// объявление переменных профиля
+let nameInProfile = document.querySelector('.profile__user-name'); 
+let jobInProfile = document.querySelector('.profile__occupation');
 
-// plus, minus, div, mult
+function popupToggle() {
+    popup.classList.toggle('popup_opened');
+}
+
+function formSubmitHandler (evt) {
+evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+nameInProfile.textContent = nameInput.value;
+jobInProfile.textContent = jobInput.value;
+popupToggle();
+}
+
+// --- функция для закрытия окна вне формы
+function clickOverlay(event) {
+    if (event.target === event.currentTarget) {
+      popupToggle();
+    }
+}
+
+formElement.addEventListener("submit", formSubmitHandler);
+
+popup.addEventListener("click", clickOverlay);
+popupOpenBtn.addEventListener('click', popupToggle);
+popupCloseBtn.addEventListener('click', popupToggle);

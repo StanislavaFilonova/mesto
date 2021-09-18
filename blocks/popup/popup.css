@@ -1,0 +1,12 @@
+.popup {
+  position: fixed;
+  top: 0; /*Чтобы преекрыло экран*/
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* для наглядности затемнение*/
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}

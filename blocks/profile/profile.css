@@ -1,7 +1,7 @@
 .profile {
   display: flex;
   flex-direction: column;
-  margin-top: 42px;
+  margin-top: 38px;
 }
 
 @media (min-width: 768px) {
@@ -15,6 +15,6 @@
 @media (min-width: 1024px) {
   .profile {
     max-width: 880px;
-    margin-top: 40px;
+    margin-top: 36px;
   }
 }

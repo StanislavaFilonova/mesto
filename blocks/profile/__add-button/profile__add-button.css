@@ -8,6 +8,11 @@
   background-color: black;
   border: none;
   padding: 0;
+  cursor: pointer;
+}
+
+.profile__add-button:hover {
+  opacity: 60%;
 }
 
 @media (min-width: 768px) {
@@ -17,7 +22,6 @@
     margin-top: 35px;
     max-height: 50px;
     background-image: url(../../../images/AddButton.svg);
-    background-size: cover;
   }
 }
 

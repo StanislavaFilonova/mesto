@@ -1,0 +1,19 @@
+.popup__form {
+  box-shadow: 0px 0px 25px 0px #00000026;
+  background-color: white;
+  width: 100%;
+  max-width: 238px;
+  color: black;
+  font-family: "Inter";
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 22px;
+}
+
+@media (min-width: 1024px) {
+  .popup__form {
+    max-width: 358px;
+    padding: 34px 36px 37px;
+  }
+}
