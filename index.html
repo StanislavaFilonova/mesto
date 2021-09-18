@@ -19,81 +19,90 @@
         />
         <hr class="header__line" />
       </header>
+      <main class="content">
+        <section class="profile">
+          <img
+            class="profile__avatar"
+            src="./images/Avatar.png"
+            alt="Аватарка пользователя"
+          />
+          <div class="profile__info">
+            <h1 class="profile__user-name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button"></button>
+            <p class="profile__occupation">Исследователь океана</p>
+          </div>
+          <button class="profile__add-button"></button>
+        </section>
 
-      <section class="profile">
-        <img
-          class="profile__avatar"
-          src="./images/Avatar.png"
-          alt="Аватарка пользователя"
-        />
-        <div class="profile__info">
-          <h1 class="profile__user-name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
-          <p class="profile__occupation">Исследователь океана</p>
-        </div>
-        <button class="profile__add-button"></button>
-      </section>
-
-      <section class="elements">
-        <div class="element">
-          <img class="element__photo" src="./images/Baikal.jpg" alt="Байкал" />
-          <div class="element__info">
-            <h2 class="element__name">Озеро Байкал</h2>
-            <button class="element__like"></button>
+        <section class="elements">
+          <div class="element">
+            <img
+              class="element__photo"
+              src="./images/Baikal.jpg"
+              alt="Байкал"
+            />
+            <div class="element__info">
+              <h2 class="element__name">Озеро Байкал</h2>
+              <button class="element__like"></button>
+            </div>
           </div>
-        </div>
-        <div class="element">
-          <img class="element__photo" src="./images/Elbrus.jpg" alt="Эльбрус" />
-          <div class="element__info">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button class="element__like"></button>
+          <div class="element">
+            <img
+              class="element__photo"
+              src="./images/Elbrus.jpg"
+              alt="Эльбрус"
+            />
+            <div class="element__info">
+              <h2 class="element__name">Гора Эльбрус</h2>
+              <button class="element__like"></button>
+            </div>
           </div>
-        </div>
-        <div class="element">
-          <img
-            class="element__photo"
-            src="./images/Kaliningrad.jpg"
-            alt="Калининград"
-          />
-          <div class="element__info">
-            <h2 class="element__name">Город Калининград</h2>
-            <button class="element__like"></button>
+          <div class="element">
+            <img
+              class="element__photo"
+              src="./images/Kaliningrad.jpg"
+              alt="Калининград"
+            />
+            <div class="element__info">
+              <h2 class="element__name">Город Калининград</h2>
+              <button class="element__like"></button>
+            </div>
           </div>
-        </div>
-        <div class="element">
-          <img
-            class="element__photo"
-            src="./images/Ruskeala.jpg"
-            alt="Рускеала"
-          />
-          <div class="element__info">
-            <h2 class="element__name">Парк Рускеала</h2>
-            <button class="element__like"></button>
+          <div class="element">
+            <img
+              class="element__photo"
+              src="./images/Ruskeala.jpg"
+              alt="Рускеала"
+            />
+            <div class="element__info">
+              <h2 class="element__name">Парк Рускеала</h2>
+              <button class="element__like"></button>
+            </div>
           </div>
-        </div>
-        <div class="element">
-          <img
-            class="element__photo"
-            src="./images/Tulinovka.jpg"
-            alt="Село Тулиновка"
-          />
-          <div class="element__info">
-            <h2 class="element__name">Село Тулиновка</h2>
-            <button class="element__like"></button>
+          <div class="element">
+            <img
+              class="element__photo"
+              src="./images/Tulinovka.jpg"
+              alt="Село Тулиновка"
+            />
+            <div class="element__info">
+              <h2 class="element__name">Село Тулиновка</h2>
+              <button class="element__like"></button>
+            </div>
           </div>
-        </div>
-        <div class="element">
-          <img
-            class="element__photo"
-            src="./images/Zelinograd.jpg"
-            alt="Зелиноград"
-          />
-          <div class="element__info">
-            <h2 class="element__name">Зелиноград</h2>
-            <button class="element__like"></button>
+          <div class="element">
+            <img
+              class="element__photo"
+              src="./images/Zelinograd.jpg"
+              alt="Зелиноград"
+            />
+            <div class="element__info">
+              <h2 class="element__name">Зелиноград</h2>
+              <button class="element__like"></button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
       <footer class="footer">
         <p class="footer__author">©&nbsp;2021&nbsp;Mesto&nbsp;Russia</p>
       </footer>
@@ -102,20 +111,18 @@
     <section class="popup">
       <div class="popup__wrapper">
         <button class="popup__close"></button>
-        <form class="popup__container">
+        <form class="popup__form">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input
             type="text"
             class="popup__name"
             name="name"
-            value
             placeholder="Жак-Ив Кусто"
           />
           <input
             type="text"
             class="popup__occupation"
             name="occupation"
-            value
             placeholder="Исследователь океана"
           />
           <button class="popup__save" type="submit">Сохранить</button>
