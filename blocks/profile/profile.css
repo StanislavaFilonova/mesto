@@ -1,14 +1,13 @@
 .profile {
   display: flex;
   flex-direction: column;
-  margin-top: 38px;
+  margin: 38px auto 0;
 }
 
 @media (min-width: 768px) {
   .profile {
     flex-direction: row;
     max-width: 720px;
-    margin: 0 auto;
   }
 }
 

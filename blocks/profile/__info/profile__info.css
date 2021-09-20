@@ -1,13 +1,22 @@
 .profile__info {
   margin: 0;
   margin-top: 22px;
-  min-width: 282px;
+  max-width: 282px;
   position: relative;
   align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .profile__info {
+    justify-content: unset;
+  }
 }
 
 @media (min-width: 1024px) {
   .profile__info {
-    min-width: 336px;
+    max-width: 336px;
   }
 }

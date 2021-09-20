@@ -4,8 +4,12 @@
   font-weight: 400;
   line-height: 17px;
   text-align: center;
-  margin: 0 auto;
+  margin: 0;
   padding-top: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 282px;
 }
 
 @media (min-width: 1024px) {
@@ -13,5 +17,6 @@
     font-size: 18px;
     line-height: 22px;
     text-align: left;
+    max-width: 294px;
   }
 }
