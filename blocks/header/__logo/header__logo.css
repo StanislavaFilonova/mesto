@@ -15,7 +15,6 @@
   .header__logo {
     max-width: 130px;
     padding-bottom: 34px;
-    padding-left: 30px;
   }
 }
 
@@ -23,7 +22,6 @@
   .header__logo {
     max-width: 135px;
     padding-bottom: 41px;
-    padding-left: 0;
   }
 }
 
