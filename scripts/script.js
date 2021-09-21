@@ -11,19 +11,13 @@ let nameInProfile = document.querySelector(".profile__user-name");
 let jobInProfile = document.querySelector(".profile__occupation");
 
 function openPopup() {
-  if (popup.classList.contains("popup_opened") === false) {
-    // Эта проверка сработает, если класса нет
     popup.classList.add("popup_opened");
     nameInput.value = nameInProfile.textContent;
     jobInput.value = jobInProfile.textContent;
-  }
 }
 
 function closePopup() {
-  if (popup.classList.contains("popup_opened")) {
-    //Эта проверка сработает, если класс есть
     popup.classList.remove("popup_opened");
-  }
 }
 
 function submitForm(evt) {
