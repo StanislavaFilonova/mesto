@@ -111,7 +111,7 @@ function onSubmitAddCardPopup(evt) {
 
 // Функция добавления карточки
 function addNewElement(evt) {
-  imagesGallery.append(evt);
+  imagesGallery.prepend(evt);
 }
 
 // Функция создания и добавления карточки
