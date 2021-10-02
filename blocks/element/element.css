@@ -4,6 +4,7 @@
   border-radius: 10px;
   z-index: 1;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .element:last-of-type {

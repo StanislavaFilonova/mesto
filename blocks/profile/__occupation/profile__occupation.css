@@ -10,6 +10,7 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 282px;
+  flex-basis: 100%;
 }
 
 @media (min-width: 1024px) {
