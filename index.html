@@ -33,8 +33,7 @@
           <button class="profile__add-button" type="button"></button>
         </section>
 
-        <section class="elements">
-        </section>
+        <section class="elements"></section>
       </main>
       <footer class="footer">
         <p class="footer__author">©&nbsp;2021&nbsp;Mesto&nbsp;Russia</p>
@@ -43,8 +42,8 @@
 
     <div class="popup popup_type_profile">
       <div class="popup__wrapper">
-        <button class="popup__close" type="button"></button>
-        <form class="popup__form" name="popupForm">
+        <button class="popup__close popup__close_type_profile" type="button"></button>
+        <form class="popup__form popup__form_type_profile" name="profilePopupForm">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input
             type="text"
@@ -65,8 +64,8 @@
 
     <div class="popup popup_type_new-card">
       <div class="popup__wrapper">
-        <button class="popup__close" type="button"></button>
-        <form class="popup__form" name="addPopupForm">
+        <button class="popup__close popup__close_type_card" type="button"></button>
+        <form class="popup__form popup__form_type_card" name="cardPopupForm">
           <h2 class="popup__title">Новое место</h2>
           <input
             type="text"
@@ -87,16 +86,18 @@
 
     <div class="popup popup_type_image">
       <div class="popup__wrapper popup__wrapper_type_image">
-        <button class="popup__close" type="button"></button>
-        <img class="popup__image" src="#" alt="Фотография достопримечательности">
-        <p class="popup__caption">...</p>
+        <button class="popup__close popup__close_type_image" type="button"></button>
+        <img
+          class="popup__image"
+          src="#"
+          alt="Фотография достопримечательности"
+        />
+        <p class="popup__caption"></p>
       </div>
     </div>
     <template class="element__template">
       <article class="element">
-        <img
-          class="element__photo" alt="Фотография места"
-        />
+        <img class="element__photo" src="#" alt="Фотография места" />
         <div class="element__info">
           <h2 class="element__name"></h2>
           <button class="element__like" type="button"></button>
