@@ -8,8 +8,8 @@ const profilePopupForm = profilePopup.querySelector(".popup__form_type_profile")
 const nameInput = profilePopup.querySelector(".popup__text_type_name");
 const jobInput = profilePopup.querySelector(".popup__text_type_occupation");
 // Объявить переменные профиля
-const nameInProfile = document.querySelector(".profile__user-name");
-const jobInProfile = document.querySelector(".profile__occupation");
+const profileName = document.querySelector(".profile__user-name");
+const profileJob = document.querySelector(".profile__occupation");
 //Вызвать попап создания новой карточки
 const cardPopup = document.querySelector(".popup_type_new-card");
 const cardPopupOpenBtn = document.querySelector(".profile__add-button");
@@ -28,74 +28,62 @@ const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
 const imagePopupCaption = imagePopup.querySelector(".popup__caption");
 //Объявить шаблон карточки
 const elementTemplate = document.querySelector(".element__template");
-//Объявить массив карточек
-const initialElements = [
-  {
-    name: "Озеро Байкал",
-    link: "https://images.unsplash.com/photo-1490879112094-281fea0883dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
-  },
-  {
-    name: "Кавказские горы",
-    link: "https://images.unsplash.com/photo-1589821986811-0fe7356d26db?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1332&q=80",
-  },
-  {
-    name: "Город Калининград",
-    link: "https://images.unsplash.com/photo-1601186668232-cbf583f60a2d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80",
-  },
-  {
-    name: "Парк Рускеала",
-    link: "https://images.unsplash.com/photo-1573156667506-115190c68737?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80",
-  },
-  {
-    name: "Село Тулиновка",
-    link: "https://images.unsplash.com/photo-1516128935666-9742cf27e24c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80",
-  },
-  {
-    name: "Город Ярославль",
-    link: "https://images.unsplash.com/photo-1602363815389-98645564a6be?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80",
-  },
-];
 
-// Функция открытия Popup Profile
-function openPopup() {
-  profilePopup.classList.add("popup_opened");
-  nameInput.value = nameInProfile.textContent;
-  jobInput.value = jobInProfile.textContent;
-}
-
-// Функция закрытия всех Popup
-function closePopup() {
-  profilePopup.classList.remove("popup_opened");
-  cardPopup.classList.remove("popup_opened");
-  imagePopup.classList.remove("popup_opened");
-}
-
-// Функция добавления нового профиля
-function submitForm(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  nameInProfile.textContent = nameInput.value;
-  jobInProfile.textContent = jobInput.value;
-  closePopup();
-}
-
-// Функция открытия Popup Add card
-function openAddCardPopup() {
-  cardPopup.classList.add("popup_opened");
+/**
+ * Функция открытия Попапа.
+ * @param element {Object} Попап, который открываем
+ */
+function openPopup (element) {
+  element.classList.add("popup_opened");
 }
 
 /**
- * Функция открытия фотографии в полном размере
- * @param {*} evt - это объект, который содержит в себе поля src и textContent
+ * Функция открытия Попапа Профиля с заполнением строк.
+ */
+function openProfile(evt) {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  openPopup(profilePopup);
+}
+
+/**
+ * Функция открытия Попапа новой карточки.
+ */
+function openCard(evt) {
+  openPopup(cardPopup);
+}
+
+/**
+ * Функция открытия Попапа с фотографией в полноэкранном режиме.
  */
 function openPhoto(evt) {
   evt.preventDefault();
-  imagePopup.classList.add("popup_opened");
   imagePopupFullScreen.src = evt.currentTarget.src;
-  imagePopupCaption.textContent = evt.currentTarget.parentElement.textContent;
+  imagePopupFullScreen.alt = evt.currentTarget.alt;
+  imagePopupCaption.textContent = evt.currentTarget.alt;
+  openPopup(imagePopup);
+}
+
+/**
+ * Функция закрытия Попапа
+ * @param element {Object} Попап, который закрываем
+ */
+function closePopup(element) {
+  element.classList.remove("popup_opened");
+}
+
+/**
+ * Функция добавления нового профиля
+ */
+function submitFormProfile(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  closePopup(profilePopup);
 }
 
 // Функция переключения лайка в карточке
-function likeToggle(evt) {
+function toggleLike(evt) {
   evt.currentTarget.classList.toggle("element__like_active");
 }
 
@@ -106,70 +94,77 @@ function deleteElement(evt) {
 }
 
 /**
- * Функция создания новой карточки
+ * Функция создания и добавления новой карточки
  * @param {*} element  это объект, который должен содержать поля link и name
  * element.link - ссылка на картинку
  * element.name - название картинки
  */
-function createNewElement(element) {
-  const newElement = elementTemplate.content.cloneNode(true);
-  newElement.querySelector(".element__name").textContent = element.name;
-  const newElementPhoto = newElement.querySelector(".element__photo");
-  newElementPhoto.src = element.link;
-  newElementPhoto.alt = element.name;
-  const newElementLike = newElement.querySelector(".element__like");
-  const newElementDelete = newElement.querySelector(".element__delete");
-  newElementPhoto.addEventListener("click", openPhoto);
-  newElementLike.addEventListener("click", likeToggle);
-  newElementDelete.addEventListener("click", deleteElement);
-  return newElement;
-}
-
-// Функция добавления карточки
-function addNewElement(evt) {
-  imagesGallery.prepend(evt);
-}
-
-// Функция создания и добавления карточки
-function createAddNewElement(element) {
-  newElement = createNewElement(element);
-  addNewElement(newElement);
+function renderCard(element) {
+  const cardElement = elementTemplate.content.querySelector(".element").cloneNode(true);
+  cardElement.querySelector(".element__name").textContent = element.name;
+  const cardElementPhoto = cardElement.querySelector(".element__photo");
+  cardElementPhoto.src = element.link;
+  cardElementPhoto.alt = element.name;
+  const cardElementLike = cardElement.querySelector(".element__like");
+  const cardElementDelete = cardElement.querySelector(".element__delete");
+  cardElementPhoto.addEventListener("click", openPhoto);
+  cardElementLike.addEventListener("click", toggleLike);
+  cardElementDelete.addEventListener("click", deleteElement);
+  imagesGallery.prepend(cardElement);
 }
 
 // Функция добавления карточки из формы
-function submitAddCardPopup(evt) {
+function submitAddCardForm(evt) {
   evt.preventDefault();
-  const el = {
+  const element = {
     name: placeNameInput.value,
     link: imageLinkInput.value,
   };
-  createAddNewElement(el);
+  renderCard(element); 
   placeNameInput.value = "";
   imageLinkInput.value = "";
-  closePopup();
+  closePopup(cardPopup);
 }
 
-//функция для закрытия окон вне формы
-function clickOverlay(event) {
+/**
+ * Функция закрытия Попапа Профиля вне формы
+ */
+function closeProfilePopup(event) {
   if (event.target === event.currentTarget) {
     closePopup(profilePopup);
+  }
+}
+
+/**
+ * Функция закрытия Попапа новой карточки вне формы
+ */
+function closeCardPopup(event) {
+  if (event.target === event.currentTarget) {
     closePopup(cardPopup);
+  }
+}
+
+/**
+ * Функция закрытия Попапа Фотографии вне формы
+ */
+function closePhotoPopup(event) {
+  if (event.target === event.currentTarget) {
     closePopup(imagePopup);
   }
 }
 
-initialElements.forEach(createAddNewElement);
+initialElements.forEach(renderCard);
 
-profilePopupForm.addEventListener("submit", submitForm);
-profilePopupOpenBtn.addEventListener("click", openPopup);
-profilePopupCloseBtn.addEventListener("click", closePopup);
-profilePopup.addEventListener("click", clickOverlay);
+profilePopupForm.addEventListener("submit", submitFormProfile);
+profilePopupOpenBtn.addEventListener("click", openProfile);
+profilePopupCloseBtn.addEventListener("click", closeProfilePopup);
+profilePopup.addEventListener("click", closeProfilePopup);
 
-cardPopupForm.addEventListener("submit", submitAddCardPopup);
-cardPopupCloseBtn.addEventListener("click", closePopup);
-cardPopupOpenBtn.addEventListener("click", openAddCardPopup);
-cardPopup.addEventListener("click", clickOverlay);
+cardPopupForm.addEventListener("submit", submitAddCardForm);
+cardPopupCloseBtn.addEventListener("click", closeCardPopup);
+cardPopupOpenBtn.addEventListener("click", openCard);
+cardPopup.addEventListener("click", closeCardPopup);
 
 imagePopupFullScreen.addEventListener("click", openPhoto);
-imagePopupCloseBtn.addEventListener("click", closePopup);
-imagePopup.addEventListener("click", clickOverlay);
+imagePopupCloseBtn.addEventListener("click", closePhotoPopup);
+imagePopup.addEventListener("click", closePhotoPopup);
