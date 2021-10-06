@@ -33,7 +33,7 @@ const elementTemplate = document.querySelector(".element__template");
  * Функция открытия Попапа.
  * @param element {Object} Попап, который открываем
  */
-function openPopup (element) {
+function openPopup(element) {
   element.classList.add("popup_opened");
 }
 
@@ -66,10 +66,15 @@ function openPhoto(evt) {
 
 /**
  * Функция закрытия Попапа
- * @param element {Object} Попап, который закрываем
+ * @param event {Object} событие клика по форме, вне формы или по крестику
  */
-function closePopup(element) {
-  element.classList.remove("popup_opened");
+function closePopup(event) {
+  if (event.target === event.currentTarget) {
+    const element = event.target.closest(".popup_opened");
+    if (element) {
+      element.classList.remove("popup_opened");
+    }
+  }
 }
 
 /**
@@ -79,7 +84,7 @@ function submitFormProfile(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(profilePopup);
+  closePopup(evt);
 }
 
 // Функция переключения лайка в карточке
@@ -94,13 +99,15 @@ function deleteElement(evt) {
 }
 
 /**
- * Функция создания и добавления новой карточки
+ * Функция создания 
  * @param {*} element  это объект, который должен содержать поля link и name
  * element.link - ссылка на картинку
  * element.name - название картинки
  */
-function renderCard(element) {
-  const cardElement = elementTemplate.content.querySelector(".element").cloneNode(true);
+function createNewCardElement(element) {
+  const cardElement = elementTemplate.content
+    .querySelector(".element")
+    .cloneNode(true);
   cardElement.querySelector(".element__name").textContent = element.name;
   const cardElementPhoto = cardElement.querySelector(".element__photo");
   cardElementPhoto.src = element.link;
@@ -110,7 +117,13 @@ function renderCard(element) {
   cardElementPhoto.addEventListener("click", openPhoto);
   cardElementLike.addEventListener("click", toggleLike);
   cardElementDelete.addEventListener("click", deleteElement);
-  imagesGallery.prepend(cardElement);
+  return cardElement;
+}
+
+//Функция добавления новой карточки из разметки
+function renderCard(element) {
+  const newCard = createNewCardElement(element);
+  imagesGallery.prepend(newCard);
 }
 
 // Функция добавления карточки из формы
@@ -120,51 +133,23 @@ function submitAddCardForm(evt) {
     name: placeNameInput.value,
     link: imageLinkInput.value,
   };
-  renderCard(element); 
-  placeNameInput.value = "";
-  imageLinkInput.value = "";
-  closePopup(cardPopup);
-}
-
-/**
- * Функция закрытия Попапа Профиля вне формы
- */
-function closeProfilePopup(event) {
-  if (event.target === event.currentTarget) {
-    closePopup(profilePopup);
-  }
-}
-
-/**
- * Функция закрытия Попапа новой карточки вне формы
- */
-function closeCardPopup(event) {
-  if (event.target === event.currentTarget) {
-    closePopup(cardPopup);
-  }
-}
-
-/**
- * Функция закрытия Попапа Фотографии вне формы
- */
-function closePhotoPopup(event) {
-  if (event.target === event.currentTarget) {
-    closePopup(imagePopup);
-  }
+  renderCard(element);
+  cardPopupForm.reset();
+  closePopup(evt);
 }
 
 initialElements.forEach(renderCard);
 
 profilePopupForm.addEventListener("submit", submitFormProfile);
 profilePopupOpenBtn.addEventListener("click", openProfile);
-profilePopupCloseBtn.addEventListener("click", closeProfilePopup);
-profilePopup.addEventListener("click", closeProfilePopup);
+profilePopupCloseBtn.addEventListener("click", closePopup);
+profilePopup.addEventListener("click", closePopup);
 
 cardPopupForm.addEventListener("submit", submitAddCardForm);
-cardPopupCloseBtn.addEventListener("click", closeCardPopup);
+cardPopupCloseBtn.addEventListener("click", closePopup);
 cardPopupOpenBtn.addEventListener("click", openCard);
-cardPopup.addEventListener("click", closeCardPopup);
+cardPopup.addEventListener("click", closePopup);
 
 imagePopupFullScreen.addEventListener("click", openPhoto);
-imagePopupCloseBtn.addEventListener("click", closePhotoPopup);
-imagePopup.addEventListener("click", closePhotoPopup);
+imagePopupCloseBtn.addEventListener("click", closePopup);
+imagePopup.addEventListener("click", closePopup);
