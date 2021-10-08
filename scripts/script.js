@@ -38,6 +38,14 @@ function openPopup(element) {
 }
 
 /**
+ * Функция закрытия Попапа.
+ * @param element {Object} Попап, который закрываем
+ */
+ function closePopup(element) {
+  element.classList.remove("popup_opened");
+}
+
+/**
  * Функция открытия Попапа Профиля с заполнением строк.
  */
 function openProfile(evt) {
@@ -65,26 +73,13 @@ function openPhoto(evt) {
 }
 
 /**
- * Функция закрытия Попапа
- * @param event {Object} событие клика по форме, вне формы или по крестику
- */
-function closePopup(event) {
-  if (event.target === event.currentTarget) {
-    const element = event.target.closest(".popup_opened");
-    if (element) {
-      element.classList.remove("popup_opened");
-    }
-  }
-}
-
-/**
  * Функция добавления нового профиля
  */
 function submitFormProfile(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(evt);
+  closePopup(profilePopup);
 }
 
 // Функция переключения лайка в карточке
@@ -135,7 +130,17 @@ function submitAddCardForm(evt) {
   };
   renderCard(element);
   cardPopupForm.reset();
-  closePopup(evt);
+  closePopup(cardPopup);
+}
+
+/**
+ * Функция закрытия попапа вне формы
+ * 
+ */
+function clickPopupOverlay(event) {
+  if(event.target === event.currentTarget) {
+    closePopup(event.target);
+  }
 }
 
 initialElements.forEach(renderCard);
@@ -143,13 +148,13 @@ initialElements.forEach(renderCard);
 profilePopupForm.addEventListener("submit", submitFormProfile);
 profilePopupOpenBtn.addEventListener("click", openProfile);
 profilePopupCloseBtn.addEventListener("click", closePopup);
-profilePopup.addEventListener("click", closePopup);
+profilePopup.addEventListener("click", clickPopupOverlay);
 
 cardPopupForm.addEventListener("submit", submitAddCardForm);
 cardPopupCloseBtn.addEventListener("click", closePopup);
 cardPopupOpenBtn.addEventListener("click", openCard);
-cardPopup.addEventListener("click", closePopup);
+cardPopup.addEventListener("click", clickPopupOverlay);
 
 imagePopupFullScreen.addEventListener("click", openPhoto);
 imagePopupCloseBtn.addEventListener("click", closePopup);
-imagePopup.addEventListener("click", closePopup);
+imagePopup.addEventListener("click", clickPopupOverlay);
