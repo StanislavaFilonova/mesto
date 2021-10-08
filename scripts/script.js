@@ -28,6 +28,8 @@ const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
 const imagePopupCaption = imagePopup.querySelector(".popup__caption");
 //Объявить шаблон карточки
 const elementTemplate = document.querySelector(".element__template");
+//Коллекция всех попапов, на которые будет объявлена функция
+const popups = document.querySelectorAll(".popup");
 
 /**
  * Функция открытия Попапа.
@@ -41,7 +43,7 @@ function openPopup(element) {
  * Функция закрытия Попапа.
  * @param element {Object} Попап, который закрываем
  */
- function closePopup(element) {
+function closePopup(element) {
   element.classList.remove("popup_opened");
 }
 
@@ -94,7 +96,7 @@ function deleteElement(evt) {
 }
 
 /**
- * Функция создания 
+ * Функция создания
  * @param {*} element  это объект, который должен содержать поля link и name
  * element.link - ссылка на картинку
  * element.name - название картинки
@@ -134,27 +136,31 @@ function submitAddCardForm(evt) {
 }
 
 /**
- * Функция закрытия попапа вне формы
- * 
+ *  Закрытие попапов вне формы, установка обработчика
  */
-function clickPopupOverlay(event) {
-  if(event.target === event.currentTarget) {
-    closePopup(event.target);
-  }
-}
+popups.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closePopup(event.target);
+    }
+  });
+});
 
 initialElements.forEach(renderCard);
 
 profilePopupForm.addEventListener("submit", submitFormProfile);
 profilePopupOpenBtn.addEventListener("click", openProfile);
-profilePopupCloseBtn.addEventListener("click", closePopup);
-profilePopup.addEventListener("click", clickPopupOverlay);
+profilePopupCloseBtn.addEventListener("click", () => {
+  closePopup(profilePopupCloseBtn.closest(".popup_type_profile"));
+});
 
 cardPopupForm.addEventListener("submit", submitAddCardForm);
-cardPopupCloseBtn.addEventListener("click", closePopup);
 cardPopupOpenBtn.addEventListener("click", openCard);
-cardPopup.addEventListener("click", clickPopupOverlay);
+cardPopupCloseBtn.addEventListener("click", () => {
+  closePopup(cardPopupCloseBtn.closest(".popup_type_new-card"));
+});
 
 imagePopupFullScreen.addEventListener("click", openPhoto);
-imagePopupCloseBtn.addEventListener("click", closePopup);
-imagePopup.addEventListener("click", clickPopupOverlay);
+imagePopupCloseBtn.addEventListener("click", () => {
+  closePopup(imagePopupCloseBtn.closest(".popup_type_image"));
+});
