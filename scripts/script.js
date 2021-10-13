@@ -81,7 +81,31 @@ function submitFormProfile(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(profilePopup);
+
+  let isValidForm = true;
+
+  let isProfileNameRequired = isRequired(profileName);
+  if(isProfileNameRequired === true) {
+    lightOff(profileName);
+  }
+  else {
+    lightOn(profileName);
+    isValidForm = false;
+  }
+
+  let isProfileJobRequired = isRequired(profileJob);
+  if(isProfileJobRequired === true) {
+    lightOff(profileJob);
+  }
+  else {
+    lightOn(profileJob);
+    isValidForm = false;
+  }
+
+  
+  if(isValidForm === true) {
+    closePopup(profilePopup);
+  }
 }
 
 // Функция переключения лайка в карточке
@@ -138,8 +162,8 @@ function submitAddCardForm(evt) {
 /**
  *  Закрытие попапов вне формы, установка обработчика
  */
-popups.forEach((item) => {
-  item.addEventListener("click", (event) => {
+popups.forEach((popup) => {
+  popup.addEventListener("click", (event) => {
     if (event.target === event.currentTarget) {
       closePopup(event.target);
     }
@@ -151,16 +175,16 @@ initialElements.forEach(renderCard);
 profilePopupForm.addEventListener("submit", submitFormProfile);
 profilePopupOpenBtn.addEventListener("click", openProfile);
 profilePopupCloseBtn.addEventListener("click", () => {
-  closePopup(profilePopupCloseBtn.closest(".popup_type_profile"));
+  closePopup(profilePopup);
 });
 
 cardPopupForm.addEventListener("submit", submitAddCardForm);
 cardPopupOpenBtn.addEventListener("click", openCard);
 cardPopupCloseBtn.addEventListener("click", () => {
-  closePopup(cardPopupCloseBtn.closest(".popup_type_new-card"));
+  closePopup(cardPopup);
 });
 
 imagePopupFullScreen.addEventListener("click", openPhoto);
 imagePopupCloseBtn.addEventListener("click", () => {
-  closePopup(imagePopupCloseBtn.closest(".popup_type_image"));
+  closePopup(imagePopup);
 });
