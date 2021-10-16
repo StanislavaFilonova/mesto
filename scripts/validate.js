@@ -60,6 +60,11 @@ const setEventListeners = (formElement, config) => {
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(submitButton, isFormValid, config);
     });
+    formElement.addEventListener('submit', (evt) => {
+      // У каждой формы отменим стандартное поведение
+      evt.preventDefault();
+      toggleButtonState(submitButton, false, config);
+    });
   });
 };
 
@@ -69,12 +74,8 @@ const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   // Переберём полученную коллекцию
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (evt) => {
-      // У каждой формы отменим стандартное поведение
-      evt.preventDefault();
-    });
-    // Для каждой формы вызовем функцию setEventListeners,
-    // передав ей элемент формы
+  // Для каждой формы вызовем функцию setEventListeners,
+  // передав ей элемент формы
     setEventListeners(formElement, config);
   });
 };
