@@ -1,4 +1,4 @@
-.popup__text {
+.popup__input {
   font-weight: 400;
   font-style: normal;
   border: none;
@@ -9,5 +9,4 @@
   box-sizing: border-box;
   font-size: 14px;
   line-height: 17px;
-  margin-bottom: 30px;
 }

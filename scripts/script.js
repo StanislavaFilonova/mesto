@@ -5,8 +5,8 @@ const profilePopupCloseBtn = profilePopup.querySelector(".popup__close_type_prof
 // Найти форму профиля в DOM
 const profilePopupForm = profilePopup.querySelector(".popup__form_type_profile");
 // Найти поля формы профиля в DOM
-const nameInput = profilePopup.querySelector(".popup__text_type_name");
-const jobInput = profilePopup.querySelector(".popup__text_type_occupation");
+const nameInput = profilePopup.querySelector(".popup__input_type_name");
+const jobInput = profilePopup.querySelector(".popup__input_type_occupation");
 // Объявить переменные профиля
 const profileName = document.querySelector(".profile__user-name");
 const profileJob = document.querySelector(".profile__occupation");
@@ -17,8 +17,8 @@ const cardPopupCloseBtn = cardPopup.querySelector(".popup__close_type_card");
 // Найти форму добавления карточки в DOM
 const cardPopupForm = cardPopup.querySelector(".popup__form_type_card");
 // Найти поля формы создания новой карточки в DOM
-const placeNameInput = cardPopup.querySelector(".popup__text_type_placename");
-const imageLinkInput = cardPopup.querySelector(".popup__text_type_imagelink");
+const placeNameInput = cardPopup.querySelector(".popup__input_type_placename");
+const imageLinkInput = cardPopup.querySelector(".popup__input_type_imagelink");
 //Обозначить контейнер, где будут размещаться карточки
 const imagesGallery = document.querySelector(".elements");
 //Открыть фотографии в полном размере
@@ -37,6 +37,7 @@ const popups = document.querySelectorAll(".popup");
  */
 function openPopup(element) {
   element.classList.add("popup_opened");
+  document.addEventListener("keydown", closePopupEsc);
 }
 
 /**
@@ -45,6 +46,7 @@ function openPopup(element) {
  */
 function closePopup(element) {
   element.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupEsc);
 }
 
 /**
@@ -81,31 +83,7 @@ function submitFormProfile(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-
-  let isValidForm = true;
-
-  let isProfileNameRequired = isRequired(profileName);
-  if(isProfileNameRequired === true) {
-    lightOff(profileName);
-  }
-  else {
-    lightOn(profileName);
-    isValidForm = false;
-  }
-
-  let isProfileJobRequired = isRequired(profileJob);
-  if(isProfileJobRequired === true) {
-    lightOff(profileJob);
-  }
-  else {
-    lightOn(profileJob);
-    isValidForm = false;
-  }
-
-  
-  if(isValidForm === true) {
-    closePopup(profilePopup);
-  }
+  closePopup(profilePopup);
 }
 
 // Функция переключения лайка в карточке
@@ -169,6 +147,18 @@ popups.forEach((popup) => {
     }
   });
 });
+
+/**
+ * Закрытие попапов при помощи кнопки escape
+ * 
+ */
+function closePopupEsc (evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    //функция закрытия окна
+    closePopup(popupOpened);
+  }
+};
 
 initialElements.forEach(renderCard);
 
