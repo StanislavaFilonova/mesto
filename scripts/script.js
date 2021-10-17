@@ -52,7 +52,7 @@ function closePopup(element) {
 /**
  * Функция открытия Попапа Профиля с заполнением строк.
  */
-function openProfile(evt) {
+function openProfile() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   openPopup(profilePopup);
@@ -61,7 +61,7 @@ function openProfile(evt) {
 /**
  * Функция открытия Попапа новой карточки.
  */
-function openCard(evt) {
+function openCard() {
   openPopup(cardPopup);
 }
 
@@ -69,10 +69,9 @@ function openCard(evt) {
  * Функция открытия Попапа с фотографией в полноэкранном режиме.
  */
 function openPhoto(evt) {
-  evt.preventDefault();
-  imagePopupFullScreen.src = evt.currentTarget.src;
-  imagePopupFullScreen.alt = evt.currentTarget.alt;
-  imagePopupCaption.textContent = evt.currentTarget.alt;
+  imagePopupFullScreen.src = evt.target.src;
+  imagePopupFullScreen.alt = evt.target.alt;
+  imagePopupCaption.textContent = evt.target.alt;
   openPopup(imagePopup);
 }
 
@@ -80,7 +79,6 @@ function openPhoto(evt) {
  * Функция добавления нового профиля
  */
 function submitFormProfile(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(profilePopup);
@@ -110,7 +108,7 @@ function createNewCardElement(element) {
   cardElement.querySelector(".element__name").textContent = element.name;
   const cardElementPhoto = cardElement.querySelector(".element__photo");
   cardElementPhoto.src = element.link;
-  cardElementPhoto.alt = element.name;
+  cardElementPhoto.alt = `Фотография места. ${element.name}`;
   const cardElementLike = cardElement.querySelector(".element__like");
   const cardElementDelete = cardElement.querySelector(".element__delete");
   cardElementPhoto.addEventListener("click", openPhoto);
