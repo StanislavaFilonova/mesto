@@ -1,9 +1,13 @@
 // Вызвать попап редактирования профиля
 const profilePopup = document.querySelector(".popup_type_profile");
 const profilePopupOpenBtn = document.querySelector(".profile__edit-button");
-const profilePopupCloseBtn = profilePopup.querySelector(".popup__close_type_profile");
+const profilePopupCloseBtn = profilePopup.querySelector(
+  ".popup__close_type_profile"
+);
 // Найти форму профиля в DOM
-const profilePopupForm = profilePopup.querySelector(".popup__form_type_profile");
+const profilePopupForm = profilePopup.querySelector(
+  ".popup__form_type_profile"
+);
 // Найти поля формы профиля в DOM
 const nameInput = profilePopup.querySelector(".popup__input_type_name");
 const jobInput = profilePopup.querySelector(".popup__input_type_occupation");
@@ -123,6 +127,13 @@ function renderCard(element) {
   imagesGallery.prepend(newCard);
 }
 
+// блокирует кнопку отправки формы после первой отправки
+function disableSubmitButton(formElement) {
+  const buttonElement = formElement.querySelector(".popup__save");
+  buttonElement.disabled = true;
+  buttonElement.classList.add("popup__save_inactive");
+}
+
 // Функция добавления карточки из формы
 function submitAddCardForm(evt) {
   evt.preventDefault();
@@ -133,6 +144,7 @@ function submitAddCardForm(evt) {
   renderCard(element);
   cardPopupForm.reset();
   closePopup(cardPopup);
+  disableSubmitButton(cardPopupForm);
 }
 
 /**
@@ -148,15 +160,15 @@ popups.forEach((popup) => {
 
 /**
  * Закрытие попапов при помощи кнопки escape
- * 
+ *
  */
-function closePopupEsc (evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape') {
+function closePopupEsc(evt) {
+  const popupOpened = document.querySelector(".popup_opened");
+  if (evt.key === "Escape") {
     //функция закрытия окна
     closePopup(popupOpened);
   }
-};
+}
 
 initialElements.forEach(renderCard);
 
