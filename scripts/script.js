@@ -35,6 +35,9 @@ const elementTemplate = document.querySelector(".element__template");
 //Коллекция всех попапов, на которые будет объявлена функция
 const popups = document.querySelectorAll(".popup");
 
+const cardSubmitButton = cardPopupForm.querySelector('.popup__save');
+
+
 /**
  * Функция открытия Попапа.
  * @param element {Object} Попап, который открываем
@@ -67,6 +70,7 @@ function openProfile() {
  */
 function openCard() {
   openPopup(cardPopup);
+  disableButton(cardSubmitButton, validationConfig)
 }
 
 /**
@@ -83,6 +87,7 @@ function openPhoto(evt) {
  * Функция добавления нового профиля
  */
 function submitFormProfile(evt) {
+  evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(profilePopup);
@@ -127,13 +132,6 @@ function renderCard(element) {
   imagesGallery.prepend(newCard);
 }
 
-// блокирует кнопку отправки формы после первой отправки
-function disableSubmitButton(formElement) {
-  const buttonElement = formElement.querySelector(".popup__save");
-  buttonElement.disabled = true;
-  buttonElement.classList.add("popup__save_inactive");
-}
-
 // Функция добавления карточки из формы
 function submitAddCardForm(evt) {
   evt.preventDefault();
@@ -144,7 +142,6 @@ function submitAddCardForm(evt) {
   renderCard(element);
   cardPopupForm.reset();
   closePopup(cardPopup);
-  disableSubmitButton(cardPopupForm);
 }
 
 /**

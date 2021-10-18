@@ -38,17 +38,27 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
+//блокируем кнопку
+const disableButton = (button, config) => {
+  button.classList.add(config.inactiveButtonClass);
+  button.setAttribute("disabled", true);
+}
+
+//разблокируем кнопку
+const enableButton = (button, config) => {
+  button.classList.remove(config.inactiveButtonClass);
+  button.removeAttribute("disabled");
+}
+
 // Функция принимает элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (button, inputList, config) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку активной
-    button.classList.add(config.inactiveButtonClass);
-    button.setAttribute("disabled", true);
+    disableButton(button, config);
   } else {
     // иначе сделай кнопку неактивной
-    button.classList.remove(config.inactiveButtonClass);
-    button.removeAttribute("disabled");
+    enableButton(button, config);
   }
 };
 
@@ -65,13 +75,11 @@ const setEventListeners = (formElement, config) => {
   inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
     inputElement.addEventListener("input", () => {
-      const isFormValid = formElement.checkValidity();
       // Внутри колбэка вызовем checkInputValidity,
       // передав ей форму и проверяемый элемент
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(submitButton, inputList, config);
     });
-
     formElement.addEventListener("submit", (evt) => {
       // У каждой формы отменим стандартное поведение
       evt.preventDefault();
