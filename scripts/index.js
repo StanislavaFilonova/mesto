@@ -53,7 +53,7 @@ function createCard(item) {
 }
 
 initialElements.forEach((item) => {
-  const element= createCard(item);
+  const element = createCard(item);
   imagesGallery.append(element);
 });
 
@@ -93,16 +93,6 @@ function openCard() {
 }
 
 /**
- * Функция открытия Попапа с фотографией в полноэкранном режиме.
- */
-function openPhoto(evt) {
-  imagePopupFullScreen.src = evt.target.src;
-  imagePopupFullScreen.alt = evt.target.alt;
-  imagePopupCaption.textContent = evt.target.alt;
-  openPopup(imagePopup);
-}
-
-/**
  * Функция добавления нового профиля
  */
 function submitFormProfile(evt) {
@@ -119,8 +109,8 @@ function submitAddCardForm(evt) {
     name: placeNameInput.value,
     link: imageLinkInput.value,
   };
-  createCard(element);
-  imagesGallery.prepend(element);
+  const elementCard = createCard(element);
+  imagesGallery.prepend(elementCard);
   cardPopupForm.reset();
   closePopup(cardPopup);
 }
@@ -163,4 +153,4 @@ imagePopupCloseBtn.addEventListener("click", () => {
   closePopup(imagePopup);
 });
 
-export {openPopup};
+export { openPopup };

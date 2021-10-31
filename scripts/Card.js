@@ -55,12 +55,11 @@ export default class Card {
     imagePopupCaption.textContent = this._decription;
     openPopup(imagePopup);
   }
-
-    // Переключение лайка в карточке
+  // Переключение лайка в карточке
   _toggleLike() {
     this._element
       .querySelector(".element__like")
-      .classList.toggle('element__like_active');
+      .classList.toggle("element__like_active");
   }
   //Удаление карточки
   _deleteElement() {
