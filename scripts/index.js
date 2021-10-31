@@ -89,7 +89,6 @@ function openProfile() {
  */
 function openCard() {
   openPopup(cardPopup);
-  disableButton(cardSubmitButton, validationConfig);
 }
 
 /**

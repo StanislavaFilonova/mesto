@@ -19,7 +19,7 @@ export default class Card {
   // Метод подготовки карточки к публикации
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".element__photo").src = this._image;
+    this._element.querySelector(".element__photo").src = this._link;
     this._element.querySelector(".element__name").textContent = this._name;
     this._element.querySelector(".element__photo").alt = this._decription;
 
@@ -50,7 +50,7 @@ export default class Card {
     const imagePopup = document.querySelector(".popup_type_image");
     const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
     const imagePopupCaption = imagePopup.querySelector(".popup__caption");
-    imagePopupFullScreen.src = this._src;
+    imagePopupFullScreen.src = this._link;
     imagePopupFullScreen.alt = `Фотография места. Название: ${this._name}`;
     imagePopupCaption.textContent = this._decription;
     openPopup(imagePopup);
