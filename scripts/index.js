@@ -1,3 +1,7 @@
+import { initialElements } from "./cards.js";
+import Card from "./Card.js";
+import { validationConfig, FormValidator } from "./FormValidator.js";
+
 // Вызвать попап редактирования профиля
 const profilePopup = document.querySelector(".popup_type_profile");
 const profilePopupOpenBtn = document.querySelector(".profile__edit-button");
@@ -25,18 +29,33 @@ const placeNameInput = cardPopup.querySelector(".popup__input_type_placename");
 const imageLinkInput = cardPopup.querySelector(".popup__input_type_imagelink");
 //Обозначить контейнер, где будут размещаться карточки
 const imagesGallery = document.querySelector(".elements");
-//Открыть фотографии в полном размере
+//кнопка закрытия фотографии в полном размере
 const imagePopup = document.querySelector(".popup_type_image");
 const imagePopupCloseBtn = imagePopup.querySelector(".popup__close_type_image");
-const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
-const imagePopupCaption = imagePopup.querySelector(".popup__caption");
 //Объявить шаблон карточки
 const elementTemplate = document.querySelector(".element__template");
 //Коллекция всех попапов, на которые будет объявлена функция
 const popups = document.querySelectorAll(".popup");
+const cardSubmitButton = cardPopupForm.querySelector(".popup__save");
 
-const cardSubmitButton = cardPopupForm.querySelector('.popup__save');
+//валидация формы добавления фото
+const formAddImage = new FormValidator(validationConfig, cardPopupForm);
+formAddImage.enableValidation();
 
+//валидация формы редактирования профиля
+const formEditProfile = new FormValidator(validationConfig, profilePopupForm);
+formEditProfile.enableValidation();
+
+function createCard(item) {
+  const card = new Card(item, ".element__template");
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
+initialElements.forEach((item) => {
+  const element= createCard(item);
+  imagesGallery.append(element);
+});
 
 /**
  * Функция открытия Попапа.
@@ -93,45 +112,6 @@ function submitFormProfile(evt) {
   closePopup(profilePopup);
 }
 
-// Функция переключения лайка в карточке
-function toggleLike(evt) {
-  evt.currentTarget.classList.toggle("element__like_active");
-}
-
-// Функция удаления карточки
-function deleteElement(evt) {
-  const deletedElement = evt.currentTarget.closest(".element");
-  deletedElement.remove();
-}
-
-/**
- * Функция создания
- * @param {*} element  это объект, который должен содержать поля link и name
- * element.link - ссылка на картинку
- * element.name - название картинки
- */
-function createNewCardElement(element) {
-  const cardElement = elementTemplate.content
-    .querySelector(".element")
-    .cloneNode(true);
-  cardElement.querySelector(".element__name").textContent = element.name;
-  const cardElementPhoto = cardElement.querySelector(".element__photo");
-  cardElementPhoto.src = element.link;
-  cardElementPhoto.alt = `Фотография места. ${element.name}`;
-  const cardElementLike = cardElement.querySelector(".element__like");
-  const cardElementDelete = cardElement.querySelector(".element__delete");
-  cardElementPhoto.addEventListener("click", openPhoto);
-  cardElementLike.addEventListener("click", toggleLike);
-  cardElementDelete.addEventListener("click", deleteElement);
-  return cardElement;
-}
-
-//Функция добавления новой карточки из разметки
-function renderCard(element) {
-  const newCard = createNewCardElement(element);
-  imagesGallery.prepend(newCard);
-}
-
 // Функция добавления карточки из формы
 function submitAddCardForm(evt) {
   evt.preventDefault();
@@ -139,7 +119,8 @@ function submitAddCardForm(evt) {
     name: placeNameInput.value,
     link: imageLinkInput.value,
   };
-  renderCard(element);
+  createCard(element);
+  imagesGallery.prepend(element);
   cardPopupForm.reset();
   closePopup(cardPopup);
 }
@@ -157,7 +138,6 @@ popups.forEach((popup) => {
 
 /**
  * Закрытие попапов при помощи кнопки escape
- *
  */
 function closePopupEsc(evt) {
   const popupOpened = document.querySelector(".popup_opened");
@@ -166,8 +146,6 @@ function closePopupEsc(evt) {
     closePopup(popupOpened);
   }
 }
-
-initialElements.forEach(renderCard);
 
 profilePopupForm.addEventListener("submit", submitFormProfile);
 profilePopupOpenBtn.addEventListener("click", openProfile);
@@ -181,7 +159,8 @@ cardPopupCloseBtn.addEventListener("click", () => {
   closePopup(cardPopup);
 });
 
-imagePopupFullScreen.addEventListener("click", openPhoto);
 imagePopupCloseBtn.addEventListener("click", () => {
   closePopup(imagePopup);
 });
+
+export {openPopup};

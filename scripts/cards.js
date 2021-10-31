@@ -1,5 +1,5 @@
 //Объявить массив карточек
-const initialElements = [
+export const initialElements = [
     {
       name: "Озеро Байкал",
       link: "https://images.unsplash.com/photo-1490879112094-281fea0883dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
@@ -25,5 +25,3 @@ const initialElements = [
       link: "https://images.unsplash.com/photo-1602363815389-98645564a6be?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=688&q=80",
     },
   ];
-
-  export {initialElements};

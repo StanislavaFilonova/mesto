@@ -5,6 +5,7 @@
   z-index: 1;
   margin-bottom: 20px;
   position: relative;
+  list-style-type: none;
 }
 
 .element:last-of-type {

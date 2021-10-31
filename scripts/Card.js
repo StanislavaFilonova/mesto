@@ -1,8 +1,7 @@
-import { openPopup } from "./script.js";
-import { initialElements } from "./cards";
+import { openPopup } from "./index.js";
 
 //Создание класса карточки
-class Card {
+export default class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -20,33 +19,14 @@ class Card {
   // Метод подготовки карточки к публикации
   generateCard() {
     this._element = this._getTemplate();
-    this._setEventListeners();
     this._element.querySelector(".element__photo").src = this._image;
     this._element.querySelector(".element__name").textContent = this._name;
     this._element.querySelector(".element__photo").alt = this._decription;
 
+    this._setEventListeners();
     return this._element;
   }
-  // Переключение лайка в карточке
-  _toggleLike() {
-    this._element
-      .querySelector(".element__like")
-      .classList.toggle('element__like_active"');
-  }
-  //Удаление карточки
-  _deleteElement() {
-    this._cardElement.remove();
-  }
-  //Открытие фото в полноэкранном режиме
-  _openPlaceImageFullscreen() {
-    const imagePopup = document.querySelector(".popup_type_image");
-    const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
-    const imagePopupCaption = imagePopup.querySelector(".popup__caption");
-    imagePopupFullScreen.src = this._src;
-    imagePopupFullScreen.alt = `Фотография места. Название: ${this._name}`;
-    imagePopupCaption.textContent = this._decription;
-    openPopup(imagePopup);
-  }
+
   // Установка слушателей на элементы карточки
   _setEventListeners() {
     this._element
@@ -60,23 +40,30 @@ class Card {
         this._deleteElement();
       });
     this._element
-      .querySelector(".element__image")
+      .querySelector(".element__photo")
       .addEventListener("click", () => {
-        this._openPlaceImageFullscreen(
-          this.__image,
-          this._name,
-          this._description
-        );
+        this._openPlaceImageFullscreen();
       });
   }
-}
-initialElements.forEach((item) => {
-  // Создание экземпляра карточки
-  const card = new Card(item, ".element-template");
-  // Создание карточки и возвращение наружу
-  const cardElement = card.generateCard();
-  // Добавляем в DOM
-  document.querySelector(".elements").append(cardElement);
-});
+  //Открытие фото в полноэкранном режиме
+  _openPlaceImageFullscreen() {
+    const imagePopup = document.querySelector(".popup_type_image");
+    const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
+    const imagePopupCaption = imagePopup.querySelector(".popup__caption");
+    imagePopupFullScreen.src = this._src;
+    imagePopupFullScreen.alt = `Фотография места. Название: ${this._name}`;
+    imagePopupCaption.textContent = this._decription;
+    openPopup(imagePopup);
+  }
 
-export { Card };
+    // Переключение лайка в карточке
+  _toggleLike() {
+    this._element
+      .querySelector(".element__like")
+      .classList.toggle('element__like_active');
+  }
+  //Удаление карточки
+  _deleteElement() {
+    this._element.remove();
+  }
+}

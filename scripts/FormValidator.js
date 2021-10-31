@@ -104,7 +104,7 @@ class FormValidator {
       inputElement.addEventListener("input", () => {
         // Внутри колбэка вызовем checkInputValidity,
         // передав ей форму и проверяемый элемент
-        this._checkInputValidity();
+        this._checkInputValidity(inputElement);
         this._toggleButtonState();
       });
       this._formElement.addEventListener("submit", (evt) => {
@@ -115,9 +115,9 @@ class FormValidator {
   }
 
   //включение валидации
-  _enableValidation() {
+  enableValidation() {
     this._setEventListeners();
-  };
+  }
 }
 
 export { FormValidator, validationConfig };
