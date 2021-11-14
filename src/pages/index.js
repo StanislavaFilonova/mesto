@@ -20,6 +20,7 @@ import {
   profileData,
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 // Вызвать попап редактирования профиля
 const profilePopupCloseBtn = document.querySelector(
@@ -52,8 +53,7 @@ formAddImage.enableValidation();
 //валидация формы редактирования профиля
 const formEditProfile = new FormValidator(validationConfig, profilePopupForm);
 formEditProfile.enableValidation();
-
-// Добавление карточки с фотографией в список
+//Создание контейнера
 const cardsList = new Section(
   {
     data: items,
@@ -72,6 +72,20 @@ const popupView = new PopupWithImage(
   popupSelectors.viewCard,
   popupData,
   imageData
+);
+
+const popupNewCard = new PopupWithForm(
+  popupSelectors.createCard,
+  popupData,
+  formData,
+  (item) => {
+    saveNewCard(item);
+  } //?
+);
+
+const popupEditProfile = new PopupWithForm(
+  popupSelectors.editProfile, popupData, formData,
+  (data) => {saveUserInfo(data);}//?
 );
 
 function createCard(item) {
