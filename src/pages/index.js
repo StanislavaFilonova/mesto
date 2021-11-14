@@ -1,44 +1,49 @@
-import '../index.css';
+import "./index.css";
 import Card from "../components/Card.js";
-import { validationConfig, FormValidator } from "../components/FormValidator.js";
+import {
+  validationConfig,
+  FormValidator,
+} from "../components/FormValidator.js";
 import { items } from "../utils/cards.js";
-import Section from "../components/Section.js"
+import Section from "../components/Section.js";
+import {
+  imagesGallery,
+  elementTemplate,
+  cardSelector,
+  imageData,
+  popupForm,
+  popupSelectors,
+  popupData,
+  formData,
+  profilePopupOpenBtn,
+  cardPopupOpenBtn,
+  profileData,
+} from "../utils/constants.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 // Вызвать попап редактирования профиля
-const profilePopup = document.querySelector(".popup_type_profile");
-const profilePopupOpenBtn = document.querySelector(".profile__edit-button");
-const profilePopupCloseBtn = profilePopup.querySelector(
+const profilePopupCloseBtn = document.querySelector(
   ".popup__close_type_profile"
 );
 // Найти форму профиля в DOM
-const profilePopupForm = profilePopup.querySelector(
-  ".popup__form_type_profile"
-);
+const profilePopupForm = document.querySelector(".popup__form_type_profile");
 // Найти поля формы профиля в DOM
 const nameInput = profilePopup.querySelector(".popup__input_type_name");
 const jobInput = profilePopup.querySelector(".popup__input_type_occupation");
-// Объявить переменные профиля
-const profileName = document.querySelector(".profile__user-name");
-const profileJob = document.querySelector(".profile__occupation");
+
 //Вызвать попап создания новой карточки
-const cardPopup = document.querySelector(".popup_type_new-card");
-const cardPopupOpenBtn = document.querySelector(".profile__add-button");
-const cardPopupCloseBtn = cardPopup.querySelector(".popup__close_type_card");
+const cardPopupCloseBtn = document.querySelector(".popup__close_type_card");
 // Найти форму добавления карточки в DOM
-const cardPopupForm = cardPopup.querySelector(".popup__form_type_card");
+const cardPopupForm = document.querySelector(".popup__form_type_card");
 // Найти поля формы создания новой карточки в DOM
-const placeNameInput = cardPopup.querySelector(".popup__input_type_placename");
-const imageLinkInput = cardPopup.querySelector(".popup__input_type_imagelink");
-//Обозначить контейнер, где будут размещаться карточки
-const imagesGallery = document.querySelector(".elements");
+const placeNameInput = document.querySelector(".popup__input_type_placename");
+const imageLinkInput = document.querySelector(".popup__input_type_imagelink");
+
 //кнопка закрытия фотографии в полном размере
-const imagePopup = document.querySelector(".popup_type_image");
-const imagePopupCloseBtn = imagePopup.querySelector(".popup__close_type_image");
-//Объявить шаблон карточки
-const elementTemplate = document.querySelector(".element__template");
+const imagePopupCloseBtn = document.querySelector(".popup__close_type_image");
+
 //Коллекция всех попапов, на которые будет объявлена функция
 const popups = document.querySelectorAll(".popup");
-const cardSubmitButton = cardPopupForm.querySelector(".popup__save");
 
 //валидация формы добавления фото
 const formAddImage = new FormValidator(validationConfig, cardPopupForm);
@@ -48,6 +53,7 @@ formAddImage.enableValidation();
 const formEditProfile = new FormValidator(validationConfig, profilePopupForm);
 formEditProfile.enableValidation();
 
+// Добавление карточки с фотографией в список
 const cardsList = new Section(
   {
     data: items,
@@ -59,7 +65,14 @@ const cardsList = new Section(
   },
   imagesGallery
 );
-cardsList.renderItems();///?
+cardsList.renderItems(); ///?
+
+// Просмотр карточки
+const popupView = new PopupWithImage(
+  popupSelectors.viewCard,
+  popupData,
+  imageData
+);
 
 function createCard(item) {
   const card = new Card(item, ".element__template");
