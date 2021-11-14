@@ -1,6 +1,7 @@
-import { initialElements } from "./cards.js";
+import { items } from "./cards.js";
 import Card from "./Card.js";
 import { validationConfig, FormValidator } from "./FormValidator.js";
+import Section from "../src/components/Section.js"
 
 // Вызвать попап редактирования профиля
 const profilePopup = document.querySelector(".popup_type_profile");
@@ -46,13 +47,26 @@ formAddImage.enableValidation();
 const formEditProfile = new FormValidator(validationConfig, profilePopupForm);
 formEditProfile.enableValidation();
 
+const cardsList = new Section(
+  {
+    data: items,
+    renderer: (item) => {
+      const card = new Card(item, ".element__template");
+      const cardElement = card.generateCard();
+      cardsList.addItem(cardElement);
+    },
+  },
+  imagesGallery
+);
+cardsList.renderItems();///?
+
 function createCard(item) {
   const card = new Card(item, ".element__template");
   const cardElement = card.generateCard();
   return cardElement;
 }
 
-initialElements.forEach((item) => {
+items.forEach((item) => {
   const element = createCard(item);
   imagesGallery.append(element);
 });

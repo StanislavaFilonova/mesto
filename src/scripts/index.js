@@ -1,7 +1,7 @@
-import { initialElements } from "./cards.js";
 import Card from "./Card.js";
 import { validationConfig, FormValidator } from "./FormValidator.js";
 import '../pages/index.css';
+import { items } from "../../scripts/cards.js";
 
 // Вызвать попап редактирования профиля
 const profilePopup = document.querySelector(".popup_type_profile");
@@ -53,7 +53,7 @@ function createCard(item) {
   return cardElement;
 }
 
-initialElements.forEach((item) => {
+items.forEach((item) => {
   const element = createCard(item);
   imagesGallery.append(element);
 });
