@@ -5,8 +5,6 @@ export const elementTemplate = document.querySelector(".element__template");
 
 export const cardSelector = document.querySelector(".element");
 
-export const imagePopup = document.querySelector(".popup_type_image");
-
 export const imageData = {
   imageSelector: ".popup__image",
   captionSelector: ".popup__caption",
@@ -22,9 +20,9 @@ export const popupForm = {
 };
 
 export const popupSelectors = {
-  viewCard: ".popup_type_image",
-  createCard: ".popup_type_new-card",
-  editProfile: ".popup_type_profile",
+  imagePopup: ".popup_type_image",
+  cardPopup: ".popup_type_new-card",
+  profilePopup: ".popup_type_profile",
 };
 
 export const popupData = {
@@ -45,3 +43,6 @@ export const profileData = {
   profileName: ".profile__user-name",
   profileJob: ".profile__occupation",
 };
+
+//Коллекция всех попапов, на которые будет объявлена функция
+const popups = document.querySelectorAll(".popup");

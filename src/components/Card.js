@@ -1,5 +1,3 @@
-import { openPopup } from "./Popup.js";
-
 //Создание класса карточки
 export default class Card {
   constructor(data, handleCardClick, cardSelector) {
@@ -46,8 +44,8 @@ export default class Card {
         this._handleCardClick({link: this._link, name: this._name});
       });
   }
-  //Открытие фото в полноэкранном режиме
-  _openPlaceImageFullscreen() {
+  //Открытие фото в полноэкранном режиме КУДА ЕГО ДЕТЬ?
+  /*_openPlaceImageFullscreen() {
     const imagePopup = document.querySelector(".popup_type_image");
     const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
     const imagePopupCaption = imagePopup.querySelector(".popup__caption");
@@ -55,7 +53,7 @@ export default class Card {
     imagePopupFullScreen.alt = `Фотография места. Название: ${this._name}`;
     imagePopupCaption.textContent = this._decription;
     openPopup(imagePopup);
-  }
+  }*/
 
   // Переключение лайка в карточке
   _toggleLike() {
