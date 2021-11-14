@@ -72,24 +72,6 @@ items.forEach((item) => {
 });
 
 /**
- * Функция открытия Попапа.
- * @param element {Object} Попап, который открываем
- */
-function openPopup(element) {
-  element.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupEsc);
-}
-
-/**
- * Функция закрытия Попапа.
- * @param element {Object} Попап, который закрываем
- */
-function closePopup(element) {
-  element.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupEsc);
-}
-
-/**
  * Функция открытия Попапа Профиля с заполнением строк.
  */
 function openProfile() {
@@ -126,28 +108,6 @@ function submitAddCardForm(evt) {
   imagesGallery.prepend(elementCard);
   cardPopupForm.reset();
   closePopup(cardPopup);
-}
-
-/**
- *  Закрытие попапов вне формы, установка обработчика
- */
-popups.forEach((popup) => {
-  popup.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-      closePopup(event.target);
-    }
-  });
-});
-
-/**
- * Закрытие попапов при помощи кнопки escape
- */
-function closePopupEsc(evt) {
-  const popupOpened = document.querySelector(".popup_opened");
-  if (evt.key === "Escape") {
-    //функция закрытия окна
-    closePopup(popupOpened);
-  }
 }
 
 profilePopupForm.addEventListener("submit", submitFormProfile);
