@@ -1,7 +1,8 @@
-import Card from "./Card.js";
-import { validationConfig, FormValidator } from "./FormValidator.js";
-import '../pages/index.css';
-import { items } from "../../scripts/cards.js";
+import '../index.css';
+import Card from "../components/Card.js";
+import { validationConfig, FormValidator } from "../components/FormValidator.js";
+import { items } from "../utils/cards.js";
+import Section from "../components/Section.js"
 
 // Вызвать попап редактирования профиля
 const profilePopup = document.querySelector(".popup_type_profile");
@@ -47,6 +48,19 @@ formAddImage.enableValidation();
 const formEditProfile = new FormValidator(validationConfig, profilePopupForm);
 formEditProfile.enableValidation();
 
+const cardsList = new Section(
+  {
+    data: items,
+    renderer: (item) => {
+      const card = new Card(item, ".element__template");
+      const cardElement = card.generateCard();
+      cardsList.addItem(cardElement);
+    },
+  },
+  imagesGallery
+);
+cardsList.renderItems();///?
+
 function createCard(item) {
   const card = new Card(item, ".element__template");
   const cardElement = card.generateCard();
@@ -57,24 +71,6 @@ items.forEach((item) => {
   const element = createCard(item);
   imagesGallery.append(element);
 });
-
-/**
- * Функция открытия Попапа.
- * @param element {Object} Попап, который открываем
- */
-function openPopup(element) {
-  element.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupEsc);
-}
-
-/**
- * Функция закрытия Попапа.
- * @param element {Object} Попап, который закрываем
- */
-function closePopup(element) {
-  element.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupEsc);
-}
 
 /**
  * Функция открытия Попапа Профиля с заполнением строк.
@@ -113,28 +109,6 @@ function submitAddCardForm(evt) {
   imagesGallery.prepend(elementCard);
   cardPopupForm.reset();
   closePopup(cardPopup);
-}
-
-/**
- *  Закрытие попапов вне формы, установка обработчика
- */
-popups.forEach((popup) => {
-  popup.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-      closePopup(event.target);
-    }
-  });
-});
-
-/**
- * Закрытие попапов при помощи кнопки escape
- */
-function closePopupEsc(evt) {
-  const popupOpened = document.querySelector(".popup_opened");
-  if (evt.key === "Escape") {
-    //функция закрытия окна
-    closePopup(popupOpened);
-  }
 }
 
 profilePopupForm.addEventListener("submit", submitFormProfile);
