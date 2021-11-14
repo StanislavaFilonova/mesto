@@ -21,6 +21,7 @@ import {
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 // Вызвать попап редактирования профиля
 const profilePopupCloseBtn = document.querySelector(
