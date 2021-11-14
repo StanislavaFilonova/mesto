@@ -1,11 +1,12 @@
-import { openPopup } from "./index.js";
+import { openPopup } from "./Popup.js";
 
 //Создание класса карточки
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, handleCardClick, cardSelector) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
   //Возвращение шаблона новой карточки
   _getTemplate() {
@@ -42,7 +43,7 @@ export default class Card {
     this._element
       .querySelector(".element__photo")
       .addEventListener("click", () => {
-        this._openPlaceImageFullscreen();
+        this._handleCardClick({link: this._link, name: this._name});
       });
   }
   //Открытие фото в полноэкранном режиме
@@ -55,6 +56,7 @@ export default class Card {
     imagePopupCaption.textContent = this._decription;
     openPopup(imagePopup);
   }
+
   // Переключение лайка в карточке
   _toggleLike() {
     this._element

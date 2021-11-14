@@ -5,6 +5,8 @@ export const elementTemplate = document.querySelector(".element__template");
 
 export const cardSelector = document.querySelector(".element");
 
+export const imagePopup = document.querySelector(".popup_type_image");
+
 export const imageData = {
   imageSelector: ".popup__image",
   captionSelector: ".popup__caption",

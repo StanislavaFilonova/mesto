@@ -18,31 +18,23 @@ import {
   profilePopupOpenBtn,
   cardPopupOpenBtn,
   profileData,
+  imagePopup
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
-// Вызвать попап редактирования профиля
-const profilePopupCloseBtn = document.querySelector(
-  ".popup__close_type_profile"
-);
 // Найти форму профиля в DOM
 const profilePopupForm = document.querySelector(".popup__form_type_profile");
 // Найти поля формы профиля в DOM
 const nameInput = profilePopup.querySelector(".popup__input_type_name");
 const jobInput = profilePopup.querySelector(".popup__input_type_occupation");
 
-//Вызвать попап создания новой карточки
-const cardPopupCloseBtn = document.querySelector(".popup__close_type_card");
 // Найти форму добавления карточки в DOM
 const cardPopupForm = document.querySelector(".popup__form_type_card");
 // Найти поля формы создания новой карточки в DOM
 const placeNameInput = document.querySelector(".popup__input_type_placename");
 const imageLinkInput = document.querySelector(".popup__input_type_imagelink");
-
-//кнопка закрытия фотографии в полном размере
-const imagePopupCloseBtn = document.querySelector(".popup__close_type_image");
 
 //Коллекция всех попапов, на которые будет объявлена функция
 const popups = document.querySelectorAll(".popup");
@@ -89,10 +81,13 @@ const popupEditProfile = new PopupWithForm(
   (data) => {saveUserInfo(data);}//?
 );
 
-function createCard(item) {
-  const card = new Card(item, ".element__template");
-  const cardElement = card.generateCard();
-  return cardElement;
+const handleCardClick = ({link, name}) => {
+imagePopup.openPopup({link, name});
+}
+// Добавление карточки с фотографией в список
+function createCard(data) {
+  const card = new Card(data, handleCardClick);
+  return card;
 }
 
 items.forEach((item) => {
