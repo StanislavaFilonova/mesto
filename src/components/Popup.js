@@ -1,8 +1,8 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._closeByOverlayClick = this._closeByOverlayClick.bind(this); //привязка контекста к функции
-    this.closePopup = closePopup.bind(this);
+    this._handleOverlayClose = this._handleOverlayClose.bind(this); //привязка контекста к функции
+    this.closePopup = this.closePopup.bind(this);
     this._handleEscClose = this._handleEscClose.bind(this);
   }
   //Закрытие попапов при помощи кнопки escape

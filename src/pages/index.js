@@ -31,28 +31,28 @@ const popupView = new PopupWithImage(
 );
 
 const handleCardClick = ({ link, name }) => {
-  imagePopup.openPopup({ link, name });
+  popupView.openPopup({ link, name });
 };
 
 // Добавление карточки с фотографией в список
 function createCard(data) {
-  const card = new Card(data, handleCardClick, elementTemplate);
+  const card = new Card({ data, handleCardClick }, elementTemplate);
   const cardElement = card.generateCard();
   return cardElement;
 }
 
 //валидация формы добавления фото
-const formAddImage = new FormValidator(validationConfig, formSelector);
-formAddImage.enableValidation();
+// const formAddImage = new FormValidator(validationConfig, popupForm.formSelector);
+// formAddImage.enableValidation();
 
-//валидация формы редактирования профиля
-const formEditProfile = new FormValidator(validationConfig, formSelector);
-formEditProfile.enableValidation();
+// //валидация формы редактирования профиля
+// const formEditProfile = new FormValidator(validationConfig, popupForm.formSelector);
+// formEditProfile.enableValidation();
 
 //Добавление карточки из массива
 const cardsList = new Section(
   {
-    data: items,
+    items: items,
     renderer: (item) => {
       const element = createCard(item);
       cardsList.addItem(element);
@@ -63,54 +63,55 @@ const cardsList = new Section(
 cardsList.renderItems();
 
 //Данные о пользователе
-const userInfo = new UserInfo({name: profileName, info: profileJob});
+const userInfo = new UserInfo({
+  name: profileData.profileName,
+  info: profileData.profileJob,
+});
 
-const popupNewCard = new PopupWithForm({
-  popupSelectors: cardPopup,//?
+const popupNewCard = new PopupWithForm(
+  popupSelectors.cardPopup,
   popupData,
   formData,
-  handleFormSubmit: (item) => {
+  (item) => {
     const newCard = createCard(item);
     cardsList.addCardItem(newCard);
-    
+
     popupNewCard.closePopup();
-}
-  } 
+  }
 );
 
-const popupEditProfile = new PopupWithForm({
-  popupSelectors: profilePopup,
+const popupEditProfile = new PopupWithForm(
+  popupSelectors.profilePopup,
   popupData,
   formData,
-  handleFormSubmit: () => {
+  () => {
     handleProfileSubmit();
   }
-});
+);
 
 /**
  * Функция открытия Попапа новой карточки.
  */
 function openCard() {
-  cardPopup.openPopup();
+  popupNewCard.openPopup();
 }
 
-//Функция открытия формы информации  о пользователе 
+//Функция открытия формы информации  о пользователе
 const openPopupProfile = () => {
   userInfo.getUserInfo();
-  profilePopup.openPopup();
-}
+  popupEditProfile.openPopup();
+};
 
 //Функция, которая сохраняет данные о пользователе при закрытии попапа
-const handleProfileSubmit = () => {
-  userInfo.setUserInfo(profilePopup.value, profilePopup.value);
-  cardPopup.closePopup();
-}
+const handleProfileSubmit = (data) => {
+  userInfo.setUserInfo(data["name"], data["info"]);
+  popupEditProfile.closePopup();
+};
 
 popupView.setEventListeners();
 popupEditProfile.setEventListeners();
 popupNewCard.setEventListeners();
 
+profilePopupOpenBtn.addEventListener("click", openPopupProfile);
 
-profilePopupOpenBtn.addEventListener('click', openPopupProfile);
-
-cardPopupOpenBtn.addEventListener('click', openCard);//?
+cardPopupOpenBtn.addEventListener("click", openCard);

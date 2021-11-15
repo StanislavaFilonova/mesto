@@ -2,7 +2,7 @@ export default class Section {
   constructor({ items, renderer }, containerSelector) {
     this._items = items; //Вопрос: должна ли я давать название точное по проекту этому массиву?
     this._renderer = renderer;
-    this._container = document.querySelector(containerSelector); //Здесь я должна дать название контейнеру, как у меня в проекте?
+    this._container = containerSelector; //Здесь я должна дать название контейнеру, как у меня в проекте?
   }
 
   addItem(evt) {

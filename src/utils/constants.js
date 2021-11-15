@@ -10,6 +10,12 @@ export const imageData = {
   captionSelector: ".popup__caption",
 };
 
+export const popupSelectors = {
+    imagePopup: ".popup_type_image",
+    cardPopup: ".popup_type_new-card",
+    profilePopup: ".popup_type_profile",
+  };
+
 // Используем при валидации форм
 export const popupForm = {
   formSelector: ".popup__form",
@@ -17,12 +23,6 @@ export const popupForm = {
   submitButtonSelector: ".popup__save",
   inputErrorClass: "popup__input-error",
   errorClass: "popup__input-error_active",
-};
-
-export const popupSelectors = {
-  imagePopup: ".popup_type_image",
-  cardPopup: ".popup_type_new-card",
-  profilePopup: ".popup_type_profile",
 };
 
 export const popupData = {
@@ -35,8 +35,8 @@ export const formData = {
   input: popupForm.inputSelector,
 };
 
-export const profilePopupOpenBtn = ".profile__edit-button";
-export const cardPopupOpenBtn = ".profile__add-button";
+export const profilePopupOpenBtn = document.querySelector(".profile__edit-button");
+export const cardPopupOpenBtn = document.querySelector(".profile__add-button");
 
 // Объявить переменные профиля
 export const profileData = {
@@ -45,4 +45,4 @@ export const profileData = {
 };
 
 //Коллекция всех попапов, на которые будет объявлена функция
-const popups = document.querySelectorAll(".popup");
+//const popups = document.querySelectorAll(".popup");
