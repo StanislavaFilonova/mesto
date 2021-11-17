@@ -11,10 +11,10 @@ export const imageData = {
 };
 
 export const popupSelectors = {
-    imagePopup: ".popup_type_image",
-    cardPopup: ".popup_type_new-card",
-    profilePopup: ".popup_type_profile",
-  };
+  imagePopup: ".popup_type_image",
+  cardPopup: ".popup_type_new-card",
+  profilePopup: ".popup_type_profile",
+};
 
 // Используем при валидации форм
 export const popupForm = {
@@ -37,7 +37,9 @@ export const formData = {
   input: popupForm.inputSelector,
 };
 
-export const profilePopupOpenBtn = document.querySelector(".profile__edit-button");
+export const profilePopupOpenBtn = document.querySelector(
+  ".profile__edit-button"
+);
 export const cardPopupOpenBtn = document.querySelector(".profile__add-button");
 
 // Объявить переменные профиля

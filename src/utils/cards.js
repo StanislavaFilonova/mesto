@@ -26,4 +26,4 @@ const items = [
   },
 ];
 
-export {items}
+export { items };

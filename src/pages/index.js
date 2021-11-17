@@ -22,10 +22,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
 // Просмотр карточки
-const popupView = new PopupWithImage(
-  popupSelectors.imagePopup,
-  imageData
-);
+const popupView = new PopupWithImage(popupSelectors.imagePopup, imageData);
 
 const handleCardClick = ({ link, name }) => {
   popupView.openPopup({ link, name });
@@ -39,11 +36,17 @@ function createCard(data) {
 }
 
 //валидация формы добавления фото
-const formAddImage = new FormValidator(validationConfig, popupForm.cardFormSelector);
+const formAddImage = new FormValidator(
+  validationConfig,
+  popupForm.cardFormSelector
+);
 formAddImage.enableValidation();
 
 // //валидация формы редактирования профиля
-const formEditProfile = new FormValidator(validationConfig, popupForm.profileFormSelector);
+const formEditProfile = new FormValidator(
+  validationConfig,
+  popupForm.profileFormSelector
+);
 formEditProfile.enableValidation();
 
 //Добавление карточки из массива

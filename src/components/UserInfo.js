@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor({name, info}) {
+  constructor({ name, info }) {
     this._name = document.querySelector(name);
     this._info = document.querySelector(info);
   }
@@ -11,9 +11,7 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo(
-    { name, occupation }
-  ) {
+  setUserInfo({ name, occupation }) {
     this._name.textContent = name;
     this._info.textContent = occupation;
   }
