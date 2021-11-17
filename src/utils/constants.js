@@ -19,6 +19,8 @@ export const popupSelectors = {
 // Используем при валидации форм
 export const popupForm = {
   formSelector: ".popup__form",
+  cardFormSelector: ".popup__form_type_card",
+  profileFormSelector: ".popup__form_type_profile",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__save",
   inputErrorClass: "popup__input-error",
@@ -43,6 +45,3 @@ export const profileData = {
   profileName: ".profile__user-name",
   profileJob: ".profile__occupation",
 };
-
-//Коллекция всех попапов, на которые будет объявлена функция
-//const popups = document.querySelectorAll(".popup");

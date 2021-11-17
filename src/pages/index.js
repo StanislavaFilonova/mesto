@@ -9,11 +9,9 @@ import Section from "../components/Section.js";
 import {
   imagesGallery,
   elementTemplate,
-  cardSelector,
   imageData,
   popupForm,
   popupSelectors,
-  popupData,
   formData,
   profilePopupOpenBtn,
   cardPopupOpenBtn,
@@ -26,7 +24,6 @@ import UserInfo from "../components/UserInfo.js";
 // Просмотр карточки
 const popupView = new PopupWithImage(
   popupSelectors.imagePopup,
-  popupData,
   imageData
 );
 
@@ -42,12 +39,12 @@ function createCard(data) {
 }
 
 //валидация формы добавления фото
-// const formAddImage = new FormValidator(validationConfig, popupForm.formSelector);
-// formAddImage.enableValidation();
+const formAddImage = new FormValidator(validationConfig, popupForm.cardFormSelector);
+formAddImage.enableValidation();
 
 // //валидация формы редактирования профиля
-// const formEditProfile = new FormValidator(validationConfig, popupForm.formSelector);
-// formEditProfile.enableValidation();
+const formEditProfile = new FormValidator(validationConfig, popupForm.profileFormSelector);
+formEditProfile.enableValidation();
 
 //Добавление карточки из массива
 const cardsList = new Section(
@@ -70,23 +67,24 @@ const userInfo = new UserInfo({
 
 const popupNewCard = new PopupWithForm(
   popupSelectors.cardPopup,
-  popupData,
   formData,
   (item) => {
     const newCard = createCard(item);
     cardsList.addCardItem(newCard);
-
     popupNewCard.closePopup();
   }
 );
 
+//Функция, которая сохраняет данные о пользователе при закрытии попапа
+const handleProfileSubmit = (data) => {
+  userInfo.setUserInfo(data);
+  popupEditProfile.closePopup();
+};
+
 const popupEditProfile = new PopupWithForm(
   popupSelectors.profilePopup,
-  popupData,
   formData,
-  () => {
-    handleProfileSubmit();
-  }
+  handleProfileSubmit
 );
 
 /**
@@ -98,14 +96,7 @@ function openCard() {
 
 //Функция открытия формы информации  о пользователе
 const openPopupProfile = () => {
-  userInfo.getUserInfo();
-  popupEditProfile.openPopup();
-};
-
-//Функция, которая сохраняет данные о пользователе при закрытии попапа
-const handleProfileSubmit = (data) => {
-  userInfo.setUserInfo(data["name"], data["info"]);
-  popupEditProfile.closePopup();
+  popupEditProfile.openPopup(userInfo.getUserInfo());
 };
 
 popupView.setEventListeners();

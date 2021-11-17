@@ -20,11 +20,11 @@ class FormValidator {
     this._submitButtonClass = validationConfig.submitButtonClass;
     this._errorClass = validationConfig.errorClass;
     this._invalidInputClass = validationConfig.invalidInputClass;
-    this._formElement = formElement;
+    this._formElement = document.querySelector(formElement); // сама форма
     this._inputList = Array.from(
-      formElement.querySelectorAll(validationConfig.inputSelector)
+      this._formElement.querySelectorAll(validationConfig.inputSelector)
     );
-    this._submitButton = formElement.querySelector(
+    this._submitButton = this._formElement.querySelector(
       validationConfig.submitButtonSelector
     );
   }

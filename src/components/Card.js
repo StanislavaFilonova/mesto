@@ -1,6 +1,6 @@
 //Создание класса карточки
 export default class Card {
-  constructor({data, handleCardClick}, cardSelector) {
+  constructor({ data, handleCardClick }, cardSelector) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
@@ -8,8 +8,8 @@ export default class Card {
   }
   //Возвращение шаблона новой карточки
   _getTemplate() {
-    const cardElement = this._cardSelector
-      .content.querySelector(".element")
+    const cardElement = this._cardSelector.content
+      .querySelector(".element")
       .cloneNode(true);
 
     return cardElement;
@@ -40,19 +40,9 @@ export default class Card {
     this._element
       .querySelector(".element__photo")
       .addEventListener("click", () => {
-        this._handleCardClick({link: this._link, name: this._name});
+        this._handleCardClick({ link: this._link, name: this._name });
       });
   }
-  //Открытие фото в полноэкранном режиме КУДА ЕГО ДЕТЬ?
-  /*_openPlaceImageFullscreen() {
-    const imagePopup = document.querySelector(".popup_type_image");
-    const imagePopupFullScreen = imagePopup.querySelector(".popup__image");
-    const imagePopupCaption = imagePopup.querySelector(".popup__caption");
-    imagePopupFullScreen.src = this._link;
-    imagePopupFullScreen.alt = `Фотография места. Название: ${this._name}`;
-    imagePopupCaption.textContent = this._decription;
-    openPopup(imagePopup);
-  }*/
 
   // Переключение лайка в карточке
   _toggleLike() {
