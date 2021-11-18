@@ -97,7 +97,6 @@ class FormValidator {
 
   //Установка слушателей
   _setEventListeners() {
-    this._toggleButtonState();
     // Обойдём все элементы полученной коллекции
     this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input

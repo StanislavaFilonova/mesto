@@ -6,6 +6,15 @@
   cursor: pointer;
 }
 
+.element__photo::after {
+  content: "";
+  display: block;
+  width: 282px;
+  height: 282px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
 .element__photo:hover {
-  opacity: .5;
+  opacity: 0.5;
 }

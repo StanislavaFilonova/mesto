@@ -35,12 +35,15 @@ export const popupData = {
 export const formData = {
   form: popupForm.formSelector,
   input: popupForm.inputSelector,
+  submitBtn: popupForm.submitButtonSelector,
 };
 
 export const profilePopupOpenBtn = document.querySelector(
   ".profile__edit-button"
 );
 export const cardPopupOpenBtn = document.querySelector(".profile__add-button");
+
+export const inactiveBtnClass = "popup__save_inactive";
 
 // Объявить переменные профиля
 export const profileData = {

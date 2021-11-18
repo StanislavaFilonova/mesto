@@ -1,10 +1,13 @@
 import Popup from "./Popup.js";
 
+import { inactiveBtnClass } from "../utils/constants.js";
+
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, { form, input }, submitHandler) {
+  constructor(popupSelector, { form, input, submitBtn }, submitHandler) {
     super(popupSelector);
     this._form = this._popup.querySelector(form);
     this._inputList = Array.from(this._form.querySelectorAll(input));
+    this._submitButton = this._form.querySelector(submitBtn);
     this._submitHandler = submitHandler;
   }
 
@@ -14,6 +17,11 @@ export default class PopupWithForm extends Popup {
       inputValues[input.name] = input.value;
     });
     return inputValues;
+  }
+
+  _disableButton() {
+    this._submitButton.classList.add(inactiveBtnClass);
+    this._submitButton.setAttribute("disabled", true);
   }
 
   setEventListeners() {
@@ -34,5 +42,6 @@ export default class PopupWithForm extends Popup {
   closePopup() {
     super.closePopup();
     this._form.reset();
+    this._disableButton();
   }
 }

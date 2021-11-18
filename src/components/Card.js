@@ -17,9 +17,10 @@ export default class Card {
   // Метод подготовки карточки к публикации
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".element__photo").src = this._link;
+    let elementPhoto = this._element.querySelector(".element__photo");
+    elementPhoto.src = this._link;
+    elementPhoto.alt = this._name;
     this._element.querySelector(".element__name").textContent = this._name;
-    this._element.querySelector(".element__photo").alt = this._decription;
 
     this._setEventListeners();
     return this._element;
@@ -53,5 +54,6 @@ export default class Card {
   //Удаление карточки
   _deleteElement() {
     this._element.remove();
+    this._element.innerHTML = null;
   }
 }
