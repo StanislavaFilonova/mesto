@@ -17,7 +17,7 @@ export default class Card {
   // Метод подготовки карточки к публикации
   generateCard() {
     this._element = this._getTemplate();
-    let elementPhoto = this._element.querySelector(".element__photo");
+    const elementPhoto = this._element.querySelector(".element__photo");
     elementPhoto.src = this._link;
     elementPhoto.alt = this._name;
     this._element.querySelector(".element__name").textContent = this._name;
