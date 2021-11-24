@@ -21,6 +21,14 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
+import Api from "../components/Api";
+
+let api = new Api({
+  "baseUrl": null,
+  "headers": null
+});
+api.getUserInfo();
+
 // Просмотр карточки
 const popupView = new PopupWithImage(popupSelectors.imagePopup, imageData);
 
