@@ -43,6 +43,8 @@ export const profilePopupOpenBtn = document.querySelector(
 );
 export const cardPopupOpenBtn = document.querySelector(".profile__add-button");
 
+export const cardPopupDeleteBtn = document.querySelector(".element__delete");//Добавила переменную кнопки удаления карточки 
+
 export const inactiveBtnClass = "popup__save_inactive";
 
 // Объявить переменные профиля

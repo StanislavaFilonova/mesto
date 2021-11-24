@@ -16,10 +16,12 @@ import {
   profilePopupOpenBtn,
   cardPopupOpenBtn,
   profileData,
+  cardPopupDeleteBtn,
 } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithSubmit from "../components/PopupWithSubmit";
 
 // Просмотр карточки
 const popupView = new PopupWithImage(popupSelectors.imagePopup, imageData);
@@ -102,6 +104,14 @@ const openPopupProfile = () => {
   popupEditProfile.openPopup(userInfo.getUserInfo());
 };
 
+//Подтверждение удаления карточки
+const popupConfirm = new PopupWithSubmit(
+
+)
+//Функция открытия попапа удаления карточки 
+const openPopupDeleteCard = () => {
+  
+}
 popupView.setEventListeners();
 popupEditProfile.setEventListeners();
 popupNewCard.setEventListeners();
@@ -109,3 +119,5 @@ popupNewCard.setEventListeners();
 profilePopupOpenBtn.addEventListener("click", openPopupProfile);
 
 cardPopupOpenBtn.addEventListener("click", openCard);
+
+cardPopupDeleteBtn.addEventListener("click", openPopupDeleteCard)
