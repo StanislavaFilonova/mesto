@@ -4,7 +4,6 @@ import {
   validationConfig,
   FormValidator,
 } from "../components/FormValidator.js";
-import { items } from "../utils/cards.js";
 import Section from "../components/Section.js";
 import {
   imagesGallery,
@@ -22,6 +21,60 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithSubmit from "../components/PopupWithSubmit";
+
+import Api from "../components/Api";
+
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
+  headers: {
+    authorization: "08bc75e7-78fb-46ea-8791-989ceb63ff7a",
+  }
+});
+
+
+let userInfoCallback = function (userInfo) {
+  console.log(userInfo);
+  console.log(userInfo.name);
+  console.log(userInfo.about);
+  document.querySelector('.profile__user-name').textContent = userInfo.name;
+  document.querySelector('.profile__occupation').textContent = userInfo.about;
+  document.querySelector('.profile__avatar').src = userInfo.avatar;
+}
+let userInfoErrback = function (err) {
+  console.log("В ходе получения информации о пользователе возникла ошибка.");
+  console.log(err);
+}
+api.getUserInfo(userInfoCallback, userInfoErrback);
+
+
+let cardCallback = function(cards) {
+  console.log(cards);
+  console.log(cards[0].name);
+  const cardsList = new Section(
+    {
+      items: cards,
+      renderer: (item) => {
+        const element = createCard(item);
+        cardsList.addItem(element);
+      },
+    },
+    imagesGallery
+  );
+  cardsList.renderItems();
+}
+
+let cardErrback = function(err) {
+  console.log("В ходе получения карточек возникла ошибка.");
+  console.log(err);
+}
+
+api.getCards(cardCallback, cardErrback);
+
+
+
+
+
 
 // Просмотр карточки
 const popupView = new PopupWithImage(popupSelectors.imagePopup, imageData);
@@ -52,17 +105,17 @@ const formEditProfile = new FormValidator(
 formEditProfile.enableValidation();
 
 //Добавление карточки из массива
-const cardsList = new Section(
-  {
-    items: items,
-    renderer: (item) => {
-      const element = createCard(item);
-      cardsList.addItem(element);
-    },
-  },
-  imagesGallery
-);
-cardsList.renderItems();
+// const cardsList = new Section(
+//   {
+//     items: items,
+//     renderer: (item) => {
+//       const element = createCard(item);
+//       cardsList.addItem(element);
+//     },
+//   },
+//   imagesGallery
+// );
+// cardsList.renderItems();
 
 //Данные о пользователе
 const userInfo = new UserInfo({
