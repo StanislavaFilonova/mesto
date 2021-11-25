@@ -4,7 +4,6 @@ import {
   validationConfig,
   FormValidator,
 } from "../components/FormValidator.js";
-import { items } from "../utils/cards.js";
 import Section from "../components/Section.js";
 import {
   imagesGallery,
