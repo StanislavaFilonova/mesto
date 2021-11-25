@@ -14,6 +14,7 @@ export const popupSelectors = {
   imagePopup: ".popup_type_image",
   cardPopup: ".popup_type_new-card",
   profilePopup: ".popup_type_profile",
+  deleteCardPopup: ".popup_type_delete-card",
 };
 
 // Используем при валидации форм

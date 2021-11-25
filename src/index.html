@@ -175,6 +175,34 @@
       </div>
     </div>
 
+    <div class="popup popup_type_avatar">
+      <div class="popup__wrapper">
+        <button
+          class="popup__close popup__close_delete-card"
+          type="button"
+        ></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form
+          class="popup__form popup__form_type_avatar"
+          name="avatarPopup"
+          novalidate
+        >
+          <input
+            id="avatar-input"
+            type="url"
+            class="popup__input popup__input_type_avatar"
+            name="avatar"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span
+            id="placename-input-error"
+            class="popup__input-error popup__input-error_active"
+          ></span>
+        <button type="submit" class="popup__save">Сохранить</button>
+      </div>
+    </div>
+
     <template class="element__template">
       <li class="element">
         <img class="element__photo" src="#" alt="Фотография места" />

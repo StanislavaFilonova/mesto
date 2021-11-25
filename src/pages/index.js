@@ -159,8 +159,9 @@ const openPopupProfile = () => {
 
 //Подтверждение удаления карточки
 const popupConfirm = new PopupWithSubmit(
-
+  deleteCardPopup.openPopup()
 )
+
 //Функция открытия попапа удаления карточки 
 const openPopupDeleteCard = () => {
   
