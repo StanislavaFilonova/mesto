@@ -58,7 +58,7 @@ export const profileData = {
 // Константы для работы с аватаркой
 //---------------------------------------------------------------------------------------------------------------------
 // DOM элемент с карандашиком редактирования аватара (появляется по наведению поверх картинки)
-export const editAvatarElement = document.querySelector(".profile__avatar_btn");
+export const editAvatarElement = document.querySelector(".profile__avatar");
 // Класс указывающий на html форму редактирования аватара
 export const avatarFormSelector = ".popup_type_avatar";
 //---------------------------------------------------------------------------------------------------------------------
