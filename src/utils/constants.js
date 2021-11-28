@@ -44,12 +44,21 @@ export const profilePopupOpenBtn = document.querySelector(
 );
 export const cardPopupOpenBtn = document.querySelector(".profile__add-button");
 
-export const cardPopupDeleteBtn = document.querySelector(".element__delete");//Добавила переменную кнопки удаления карточки 
+export const cardPopupDeleteBtn = document.querySelector(".element__delete"); //Добавила переменную кнопки удаления карточки 
 
 export const inactiveBtnClass = "popup__save_inactive";
 
 // Объявить переменные профиля
 export const profileData = {
   profileName: ".profile__user-name",
-  profileJob: ".profile__occupation",
+  profileJob: ".profile__occupation"
 };
+
+
+// Константы для работы с аватаркой
+//---------------------------------------------------------------------------------------------------------------------
+// DOM элемент с карандашиком редактирования аватара (появляется по наведению поверх картинки)
+export const editAvatarElement = document.querySelector(".profile__avatar_btn");
+// Класс указывающий на html форму редактирования аватара
+export const avatarFormSelector = ".popup_type_avatar";
+//---------------------------------------------------------------------------------------------------------------------

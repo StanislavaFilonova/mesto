@@ -3,6 +3,15 @@
   height: 120px;
   margin: 0 auto;
   border-radius: 50%;
+  display: block;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.profile__avatar:hover {
+  background-color: #000;
+  background-image: url(../../../images/Pencil.svg);
+  opacity: .5;
 }
 
 @media (min-width: 1024px) {

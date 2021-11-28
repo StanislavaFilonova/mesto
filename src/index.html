@@ -19,16 +19,13 @@
       </header>
       <main class="content">
         <section class="profile">
-          <!-- <img
-            class="profile__avatar"
-            src="./images/Avatar.png"
-            alt="Аватарка пользователя"
-          /> -->
-          <img
+          <button class="profile__avatar_btn">
+            <img
             class="profile__avatar"
             src="#"
             alt="Аватарка пользователя"
           />
+          </button>
           <div class="profile__info">
             <!-- <h1 class="profile__user-name">Жак-Ив Кусто</h1> -->
             <h1 class="profile__user-name"></h1>
@@ -167,11 +164,12 @@
           type="button"
         ></button>
         <form
-        class="popup__form popup__form_type_delete-card"
-        name="cardPopupDelete"
-      >
-        <h2 class="popup__title">Вы уверены?</h2>
-        <button type="submit" class="popup__save">Да</button>
+          class="popup__form popup__form_type_delete-card"
+          name="cardPopupDelete"
+        >
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button type="submit" class="popup__save">Да</button>
+        </form>
       </div>
     </div>
 
@@ -181,12 +179,12 @@
           class="popup__close popup__close_delete-card"
           type="button"
         ></button>
-        <h2 class="popup__title">Обновить аватар</h2>
         <form
           class="popup__form popup__form_type_avatar"
           name="avatarPopup"
           novalidate
         >
+          <h2 class="popup__title">Обновить аватар</h2>
           <input
             id="avatar-input"
             type="url"
@@ -196,10 +194,11 @@
             required
           />
           <span
-            id="placename-input-error"
+            id="avatar-input-error"
             class="popup__input-error popup__input-error_active"
           ></span>
-        <button type="submit" class="popup__save">Сохранить</button>
+          <button type="submit" class="popup__save popup__save_inactive" disabled="true">Сохранить</button>
+        </form>
       </div>
     </div>
 
@@ -208,7 +207,10 @@
         <img class="element__photo" src="#" alt="Фотография места" />
         <div class="element__info">
           <h2 class="element__name"></h2>
-          <button class="element__like" type="button"></button>
+            <div class="element__rate">
+              <button class="element__like" type="button"></button>
+              <h3 class="element__number"></h3>
+            </div>
           <button class="element__delete" type="button"></button>
         </div>
       </li>

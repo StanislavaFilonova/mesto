@@ -34,4 +34,12 @@ export default class Popup {
       document.removeEventListener("keydown", this._handleEscClose);
     }
   }
+  
+  /**
+   * Публичная функция, для установки текста на кнопку сохранения (submit)
+   * @param {String} captionText 
+   */
+  setSubmitBtnCaption(captionText) {
+    this._submitButton.textContent = captionText;
+  }
 }

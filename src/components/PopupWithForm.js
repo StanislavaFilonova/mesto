@@ -11,8 +11,13 @@ export default class PopupWithForm extends Popup {
     this._submitHandler = submitHandler;
   }
 
+  /**
+   * Приватный метод получения значений полей ввода формы (input) 
+   * @returns {Object} Содержит информацию о названии полей формы (по их имени, атрибут name) и их значениях (value)
+   */
   _getInputValues() {
     const inputValues = {};
+    // Для всех полей ввода формы (input) в цикле формируем объект name: value
     this._inputList.forEach((input) => {
       inputValues[input.name] = input.value;
     });
@@ -24,11 +29,18 @@ export default class PopupWithForm extends Popup {
     this._submitButton.setAttribute("disabled", true);
   }
 
+  /**
+   * Метод подписки на события в форме
+   */
   setEventListeners() {
     super.setEventListeners();
+    // Подписка на нажатие кнопки "Сохранить"
     this._popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._submitHandler(this._getInputValues());
+      // Получить значения полей формы
+      const profileFieldsValues = this._getInputValues();
+      // Вызов функции обработчика со значениями полей формы
+      this._submitHandler(profileFieldsValues);
     });
   }
 
