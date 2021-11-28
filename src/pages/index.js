@@ -93,7 +93,7 @@ const avatarEditForm = new PopupWithForm(
       data.avatar, 
       // в документации ответ в случае позитивного сценария загрузки новой аватарки не описан
       (res) => {
-        document.querySelector(".profile__avatar_img").src = res.avatar;
+        document.querySelector(".profile__avatar").src = res.avatar;
         avatarEditForm.closePopup();
       },
       (err) => {
@@ -214,7 +214,7 @@ const userInfoCallback = function (userInfo) {
   console.log(userInfo.about);
   document.querySelector(".profile__user-name").textContent = userInfo.name;
   document.querySelector(".profile__occupation").textContent = userInfo.about;
-  document.querySelector(".profile__avatar_img").src = userInfo.avatar;
+  document.querySelector(".profile__avatar").src = userInfo.avatar;
 
   /**
    * Метод класса API для получения карточек мест с сервера
