@@ -69,6 +69,9 @@ const popupEditProfile = new PopupWithForm(
       },
       (err) => {
         console.log(err);
+      },
+      (txt) => {
+        popupEditProfile.setSubmitBtnCaption(txt);
       }
     );
   }
@@ -84,7 +87,7 @@ popupEditProfile.setEventListeners();
 
 // Функция открытия формы информации о пользователе
 profilePopupOpenBtn.addEventListener("click", () => {
-  popupEditProfile.setSubmitBtnCaption("Сохранить");
+  //popupEditProfile.setSubmitBtnCaption("Сохранить");
   popupEditProfile.openPopup(userInfo.getUserInfo());
 });
 
@@ -116,7 +119,9 @@ const avatarEditForm = new PopupWithForm(
       },
       (err) => {
         console.error(err);
-        avatarEditForm.closePopup();
+      },
+      (txt) => {
+        avatarEditForm.setSubmitBtnCaption(txt);
       }
     );
   }
@@ -125,7 +130,7 @@ const avatarEditForm = new PopupWithForm(
 avatarEditForm.setEventListeners();
 
 editAvatarElement.addEventListener("click", (event) => {
-  avatarEditForm.setSubmitBtnCaption("Сохранить");
+  //avatarEditForm.setSubmitBtnCaption("Сохранить");
   // откроем форму редактирования и заполним поле со ссылкой на текущаю аватарку
   avatarEditForm.openPopup({});
 });
@@ -177,7 +182,9 @@ const popupNewCard = new PopupWithForm(
       },
       (err) => {
         console.error(err);
-        popupNewCard.closePopup();
+      },
+      (txt) => {
+        popupNewCard.setSubmitBtnCaption(txt);
       }
     );
   }
@@ -186,7 +193,7 @@ popupNewCard.setEventListeners();
 
 // Открытие попапа создания новой карточки при клике на кнопку +
 cardPopupOpenBtn.addEventListener("click", function () {
-  popupNewCard.setSubmitBtnCaption("Создать");
+  //popupNewCard.setSubmitBtnCaption("Создать");
   popupNewCard.openPopup();
 });
 //---------------------------------------------------------------------------------------------------------------------

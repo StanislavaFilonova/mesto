@@ -58,7 +58,7 @@ export default class Api {
    * @param {Function} errback 
    * @returns 
    */
-  editProfile(userData, callback, errback) {
+  editProfile(userData, callback, errback, finalback) {
 
     if (!userData.name) {
       console.error("Api.editProfile в аргументе userData не передано обязательное поле 'name'. Запрос не будет выполнен.");
@@ -86,6 +86,9 @@ export default class Api {
       })
       .catch((err) => {
         errback(err);
+      })
+      .finally(() => {
+        finalback("Сохранить");
       });
   }
 
@@ -98,7 +101,7 @@ export default class Api {
    * @param {Function} callback 
    * @param {Function} errback 
    */
-  addCard(cardData, callback, errback) {
+  addCard(cardData, callback, errback, finalback) {
 
     if(!cardData.name) {
       console.error("Api.addCard в аргументе cardData не передано обязательное поле 'name'. Запрос не будет выполнен.");
@@ -126,6 +129,9 @@ export default class Api {
       })
       .catch((err) => {
         errback(err);
+      })
+      .finally(() => {
+        finalback("Создать");
       });
   }
 
@@ -228,7 +234,7 @@ export default class Api {
    * @param {Function} callback 
    * @param {Function} errback 
    */
-  renewAvatar(avatarLink ,callback, errback) {
+  renewAvatar(avatarLink ,callback, errback, finalback) {
     
     if(!avatarLink) {
       console.error("Api.renewAvatar не передан обязательный аргумент avatarLink. Запрос не будет выполнен.");
@@ -253,6 +259,9 @@ export default class Api {
     })
     .catch((err) => {
       errback(err);
+    })
+    .finally(() => {
+      finalback("Сохранить");
     });
   }
 }
