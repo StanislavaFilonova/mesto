@@ -3,22 +3,29 @@ import Api from "../components/Api";
 
 //Создание класса карточки
 export default class Card {
-  constructor({ data, handleCardClick, handlerCardDelete }, cardSelector) {
+  constructor(data, handleCardClick, handlerCardDelete, cardSelector, api, uid) {
+    this._api = api;
     this._cardId = data._id;
     this._name = data.name;
     this._link = data.link;
     this._likeCount = data.likes.length;
-    this._hasLike = data.hasLike; // флаг говорит о том, стоит наш собственный лайк на карточке или нет
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handlerCardDelete = handlerCardDelete
+    this._handlerCardDelete = handlerCardDelete;
 
-    // Создание нового экземпляра класса Api с двумя свойствами baseUrl и headers
-    this._api = new Api({
-      baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",
-      headers: {
-        authorization: "08bc75e7-78fb-46ea-8791-989ceb63ff7a",
-      },
+    // Добавим в информацию о картинке bool свойство - наша картинка или нет
+    if (uid === data.owner._id) {
+      this._myCard = true;
+    } else {
+      this._myCard = false;
+    }
+
+    // Добавим флаг, который говорит о том, стоит наш собственный лайк на карточке или нет
+    this._hasLike = false;
+    data.likes.forEach((el) => {
+      if(uid === el._id) {
+        this._hasLike = true;
+      }
     });
   }
   //Возвращение шаблона новой карточки
@@ -57,11 +64,17 @@ export default class Card {
       .addEventListener("click", () => {
         this._toggleLike();
       });
-    this._element
-      .querySelector(".element__delete")
-      .addEventListener("click", () => {
+
+    // Получим элемент корзинки
+    const deleteElement = this._element.querySelector(".element__delete");
+    if (!this._myCard) {
+      deleteElement.hidden = true;
+    }
+    // Вешаем обработчик на клик по корзинке
+    deleteElement.addEventListener("click", () => {
         this._handlerCardDelete(this._cardId, this._element);
       });
+
     this._element
       .querySelector(".element__photo")
       .addEventListener("click", () => {

@@ -4,6 +4,12 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.statusText}, с кодом: ${res.status}`);
+  }
 
   /**
    * Метод получения информации о пользователе с сервера 
@@ -14,13 +20,11 @@ export default class Api {
     fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     })
-      .then((res) => res.json())
+      .then(this._checkResponse)
       .then((result) => {
-        // console.log(result);
         callback(result);
       })
       .catch((err) => {
-        // console.log(err);
         errback(err);
       });
   }
@@ -28,22 +32,19 @@ export default class Api {
 
   /**
    * Метод получения карточек с сервера 
-   * @param {String} userId Идентификатор моего пользователя
    * @param {Function} callback принимает идентификатор пользователя и результат принятия 
    * @param {Function} errback 
    */
-  getCards(userId, callback, errback) {
+  getCards(callback, errback) {
     fetch(`${this._baseUrl}/cards`, {
         headers: this._headers,
       })
-        .then((res) => res.json())
+        .then(this._checkResponse)
         .then((result) => {
-          callback(userId, result);
-          // console.log(result);
+          callback(result);
         })
         .catch((err) => {
           errback(err);
-          // console.log(err);
         });
   }
 
@@ -79,14 +80,12 @@ export default class Api {
     };
 
     fetch(url, opts)
-      .then((res) => res.json())
+      .then(this._checkResponse)
       .then((result) => {
         callback(result);
-        // console.log(result);
       })
       .catch((err) => {
         errback(err);
-        // console.log(err);
       });
   }
 
@@ -121,14 +120,12 @@ export default class Api {
     };
 
     fetch(url, opts)
-      .then((res) => res.json())
+      .then(this._checkResponse)
       .then((result) => {
         callback(result);
-        // console.log(result);
       })
       .catch((err) => {
         errback(err);
-        // console.log(err);
       });
   }
 
@@ -155,14 +152,12 @@ export default class Api {
     };
 
     fetch(url, opts)
-      .then((res) => res.json())
+      .then(this._checkResponse)
       .then((result) => {
         callback(result);
-        // console.log(result);
       })
       .catch((err) => {
         errback(err);
-        // console.log(err);
       });
   }
 
@@ -187,14 +182,12 @@ export default class Api {
     };
 
     fetch(url, opts)
-      .then((res) => res.json())
+      .then(this._checkResponse)
       .then((result) => {
         callback(result);
-        // console.log(result);
       })
       .catch((err) => {
         errback(err);
-        // console.log(err);
       });
   }
 
@@ -219,15 +212,13 @@ export default class Api {
     };
 
     fetch(url, opts)
-    .then((res) => res.json())
-    .then((result) => {
-      callback(result);
-      // console.log(result);
-    })
-    .catch((err) => {
-      errback(err);
-      // console.log(err);
-    });
+      .then(this._checkResponse)
+      .then((result) => {
+        callback(result);
+      })
+      .catch((err) => {
+        errback(err);
+     });
   }
 
 
@@ -256,14 +247,12 @@ export default class Api {
     };
 
     fetch(url, opts)
-    .then((res) => res.json())
+    .then(this._checkResponse)
     .then((result) => {
       callback(result);
-      // console.log(result);
     })
     .catch((err) => {
       errback(err);
-      // console.log(err);
     });
   }
 }

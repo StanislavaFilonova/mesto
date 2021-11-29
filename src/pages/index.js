@@ -54,13 +54,30 @@ const popupEditProfile = new PopupWithForm(
   (userData) => {
     // Перед отправкой на сервер, повесим текст, который покажет пользователю, что мы сохраняем информацию
     popupEditProfile.setSubmitBtnCaption("Сохранение...");
-    handleProfileSubmit(userData);
+    // Сохраняем данные пользователя на сервере
+    api.editProfile(
+      {
+        name: userData.name,
+        about: userData.occupation,
+      },
+      (result) => {
+        console.log(result);
+        // Заполняем поля профиля на странице, тем что вернул сервер
+        // обхект результата передаем как есть, тк его формат совпадает с реализацией UserInfo.setUserInfo
+        userInfo.setUserInfo(result);
+        popupEditProfile.closePopup();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 );
 // Данные о пользователе
 const userInfo = new UserInfo({
   name: profileData.profileName,
   info: profileData.profileJob,
+  avatar: profileData.profileAvatar,
 });
 
 popupEditProfile.setEventListeners();
@@ -93,7 +110,8 @@ const avatarEditForm = new PopupWithForm(
       data.avatar, 
       // в документации ответ в случае позитивного сценария загрузки новой аватарки не описан
       (res) => {
-        document.querySelector(".profile__avatar").src = res.avatar;
+        console.log(res);
+        userInfo.setUserInfo(res);
         avatarEditForm.closePopup();
       },
       (err) => {
@@ -113,6 +131,65 @@ editAvatarElement.addEventListener("click", (event) => {
 });
 
 //---------------------------------------------------------------------------------------------------------------------
+// Подготавливаем список для работы с карточками
+
+const cardsList = new Section(
+  (item) => {
+    const uid = userInfo.getUserInfo()._id;
+    // В информацию о карточке добавляем свойство .myCard, которое говорит о том, моя ли эта карточка или нет
+    // Условие, которое проверяет равенство идентификатора пользователя и идентификатор карточки
+    if (uid === item.owner._id) {
+      item.myCard = true;
+    } else {
+      item.myCard = false;
+    }
+
+    const element = createCard(item);
+    cardsList.addItem(element);
+  },
+  imagesGallery
+);
+
+//---------------------------------------------------------------------------------------------------------------------
+
+// Создание нового экземпляра класса PopupWithForm c тремя свойствами селектор попапа, данные формы и функция обработчик
+/**
+ * Review:Каждый попап нужно создать только 1 раз  в теле файла и вызвать у него 1 раз setEventListeners
+ * Не могу понять, что не так. 
+ * Для каждой новой формы (профиля, аватара и карточки) использую общий класс PopupWithForm
+ * Но с разными селекторами формы (профиля, аватара и карточки)
+ * Мне как то нужно обобщить эту логику?
+ */
+const popupNewCard = new PopupWithForm(
+  popupSelectors.cardPopup,
+  formData,
+  // Функция, обработчик, которая получает список картинок с сервера
+  (item) => {
+    // Перед ием как отправить данные на сервер, покажем пользователю ожиданчик на кнопке
+    popupNewCard.setSubmitBtnCaption("Создание...");
+    // Теперь отправляем запрос на сервер
+    api.addCard(
+      item,
+      (res) => {
+        const newCard = createCard(res);
+        cardsList.addCardItem(newCard);
+        popupNewCard.closePopup();
+      },
+      (err) => {
+        console.error(err);
+        popupNewCard.closePopup();
+      }
+    );
+  }
+);
+popupNewCard.setEventListeners();
+
+// Открытие попапа создания новой карточки при клике на кнопку +
+cardPopupOpenBtn.addEventListener("click", function () {
+  popupNewCard.setSubmitBtnCaption("Создать");
+  popupNewCard.openPopup();
+});
+//---------------------------------------------------------------------------------------------------------------------
 
 // Создание нового экземпляра класса Api с двумя свойствами baseUrl и headers
 const api = new Api({
@@ -123,116 +200,6 @@ const api = new Api({
 });
 //---------------------------------------------------------------------------------------------------------------------
 /**
- * Функция получает список карточек от сервера и выводит их.
- * Функция колбек (обработчик), которая будет вызвана когда сервер ответит.
- * @param {String} uid Идентификатор пользователя
- * @param {Object} cards Массив карточек, который мы получаем с сервера 
- */
-const cardCallback = function (uid, cards) {
-  console.log(cards);
-  console.log(uid);
-  const cardsList = new Section(
-    {
-      items: cards,
-      renderer: (item) => {
-        // В информацию о карточке добавляем свойство .myCard, которое говорит о том, моя ли эта карточка или нет
-        // Условие, которое проверяет равенство идентификатора пользователя и идентификатор карточки
-        if (uid === item.owner._id) {
-          item.myCard = true;
-        } else {
-          item.myCard = false;
-        }
-        
-        // Вычислим флаг, есть ли среди лайков, тот который поставили мы
-        item.hasLike = false;
-        item.likes.forEach((el) => {
-          if(uid === el._id) {
-            item.hasLike = true;
-          }
-        });
-
-        //todo После проверки создаем карточку и добавляем карточку в секцию
-        const element = createCard(item);
-        cardsList.addItem(element);
-      },
-    },
-    imagesGallery
-  );
-  cardsList.renderItems();
-
-  // Создание нового экземпляра класса PopupWithForm c тремя свойствами селектор попапа, данные формы и функция обработчик
-  const popupNewCard = new PopupWithForm(
-    popupSelectors.cardPopup,
-    formData,
-    // Функция, обработчик, которая получает список картинок с сервера
-    (item) => {
-      // Перед ием как отправить данные на сервер, покажем пользователю ожиданчик на кнопке
-      popupNewCard.setSubmitBtnCaption("Создание...");
-      // Теперь отправляем запрос на сервер
-      api.addCard(
-        item,
-        (res) => {
-          // Добавим в информацию о картинке bool свойство - наша картинка или нет
-          if (uid === res.owner._id) {
-            res.myCard = true;
-          } else {
-            res.myCard = false;
-          }
-          const newCard = createCard(res);
-          cardsList.addCardItem(newCard);
-          popupNewCard.closePopup();
-        },
-        (err) => {
-          console.error(err);
-          popupNewCard.closePopup();
-        }
-      );
-    }
-  );
-  popupNewCard.setEventListeners();
-
-  // Открытие попапа создания новой карточки при клике на кнопку +
-  cardPopupOpenBtn.addEventListener("click", function () {
-    popupNewCard.setSubmitBtnCaption("Создать");
-    popupNewCard.openPopup();
-  });
-};
-//---------------------------------------------------------------------------------------------------------------------
-// todo Функция ответа на добавление карточки, которая возвращает ошибку
-const cardErrback = function (err) {
-  console.log("В ходе получения карточек возникла ошибка.");
-  console.log(err);
-};
-//---------------------------------------------------------------------------------------------------------------------
-/**
- * todo Функция ответа на получение информации о пользователе
- * @param {Object} userInfo Объект, у которого три свойства: name, about, avatar.
- */ 
-const userInfoCallback = function (userInfo) {
-  console.log(userInfo);
-  console.log(userInfo.name);
-  console.log(userInfo.about);
-  document.querySelector(".profile__user-name").textContent = userInfo.name;
-  document.querySelector(".profile__occupation").textContent = userInfo.about;
-  document.querySelector(".profile__avatar").src = userInfo.avatar;
-
-  /**
-   * Метод класса API для получения карточек мест с сервера
-   * На вход получает три параметра: идентификатор пользователя, функции роьработки позитивного и негативного ответа
-   */
-  api.getCards(userInfo._id, cardCallback, cardErrback);
-};
-//---------------------------------------------------------------------------------------------------------------------
-/**
- * Функция обработчик ответа от сервера в случае возникновления ошибки
- * @param {*} err сообщение об ошибке String или Object
- */
-const userInfoErrback = function (err) {
-  console.log("В ходе получения информации о пользователе возникла ошибка.");
-  console.log(err);
-};
-//---------------------------------------------------------------------------------------------------------------------
-/**
  * Функция, которая открывает попап открытия фотографии по клику 
  * @param {Object} Объект с двумя свойствами (link, name)
  */
@@ -241,7 +208,7 @@ const userInfoErrback = function (err) {
 };
 //---------------------------------------------------------------------------------------------------------------------
 /**
- * todo Функция удаления своей созданной карточки
+ * Функция удаления своей созданной карточки
  * @param {String} cardId Идентификатор карточки 
  * @param {Object} element карточка
  */
@@ -261,64 +228,50 @@ const userInfoErrback = function (err) {
 };
 //---------------------------------------------------------------------------------------------------------------------
 /**
- * Функция, которая сохраняет данные о пользователе при закрытии попапа
- * @param {Object} userData 
- */
-const handleProfileSubmit = (userData) => {
-  // Функция обработчик успешного сохранения данных о пользователе
-  // Вернет объект с сервера с обновленными данными, где
-  // имя пользователя это result.name
-  // описание это result.about
-  const editProfileCallback = function (result) {
-    console.log(result);
-    // Заполняем поля профиля на странице, тем что вернул сервер
-    userInfo.setUserInfo({
-      name: result.name,
-      occupation: result.about,
-    });
-    // Закрываем форму
-    popupEditProfile.closePopup();
-  };
-  const editProfileErrback = function (err) {
-    console.log(err);
-    // Закрываем форму
-    popupEditProfile.closePopup();
-  };
-  // Сохраняем данные пользователя на сервере
-  api.editProfile(
-    {
-      name: userData.name,
-      about: userData.occupation,
-    },
-    editProfileCallback,
-    editProfileErrback
-  );
-};
-//---------------------------------------------------------------------------------------------------------------------
-/**
  * Получаем с сервера сведения о пользователе и результат подставляем на страницу
  * На вход получает два параметра:
  *  1. Функцию положительного ответа на запрос получения информации о пользователе, с типом Object
  *  2. Функцию обработки ошибки
  */
-api.getUserInfo(userInfoCallback, userInfoErrback);
-
+api.getUserInfo(
+  // Функция колбэк получает информацию о пользователе в виде объекта
+  // Объект содержит свойства: name, about, avatar, _id.
+  (user) => {
+    console.log(user);
+    userInfo.setUserInfo(user);
+    // После получения идентификатора пользователя получим карточки 
+    api.getCards( 
+      // После получения карточек - нарисуем их
+      (cards) => {
+        console.log(cards);
+        cardsList.renderItems(cards);
+      },
+      (err) => {
+        console.log("В ходе получения карточек возникла ошибка.");
+        console.log(err);
+      }
+    );
+  },
+  (err) => {
+    console.log("В ходе получения информации о пользователе возникла ошибка.");
+    console.log(err);
+  }
+);
 //---------------------------------------------------------------------------------------------------------------------
 // Добавление карточки с фотографией в список
 function createCard(data) {
   const card = new Card(
-    { data, 
-      handleCardClick, 
-      handlerCardDelete: (cardId, element) => {
-        popupConfirm.openPopup(cardId, element);
-      }
+    data, 
+    handleCardClick, 
+    (cardId, element) => {
+      popupConfirm.openPopup(cardId, element);
     },
-    elementTemplate
+    elementTemplate,
+    api,
+    // добавим свой ид пользователя, чтобы можно было понять кто автор карточки и лайка на ней (я или нет)
+    userInfo.getUserInfo()._id
   );
   const cardElement = card.generateCard();
-  if (!data.myCard) {
-    cardElement.querySelector(".element__delete").hidden = true;
-  }
   return cardElement;
 }
 
@@ -344,4 +297,3 @@ const formEditAvatar = new FormValidator(
 formEditAvatar.enableValidation();
 
 //---------------------------------------------------------------------------------------------------------------------
-

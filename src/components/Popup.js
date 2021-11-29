@@ -5,11 +5,9 @@ export default class Popup {
     this.closePopup = this.closePopup.bind(this);
     this._handleEscClose = this._handleEscClose.bind(this);
   }
-  //Закрытие попапов при помощи кнопки escape
   _handleEscClose(evt) {
     if (evt.key === "Escape") this.closePopup();
   }
-  //Закрытие попапов вне формы
   _handleOverlayClose(evt) {
     if (evt.target === evt.currentTarget) this.closePopup();
   }
@@ -40,6 +38,9 @@ export default class Popup {
    * @param {String} captionText 
    */
   setSubmitBtnCaption(captionText) {
-    this._submitButton.textContent = captionText;
+    // Делаем проверку, есть ли кнопка сабмита
+    if (this._submitButton) {
+      this._submitButton.textContent = captionText;
+    }
   }
 }

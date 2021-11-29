@@ -51,7 +51,8 @@ export const inactiveBtnClass = "popup__save_inactive";
 // Объявить переменные профиля
 export const profileData = {
   profileName: ".profile__user-name",
-  profileJob: ".profile__occupation"
+  profileJob: ".profile__occupation",
+  profileAvatar: ".profile__avatar"
 };
 
 

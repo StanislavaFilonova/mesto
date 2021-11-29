@@ -110,7 +110,27 @@ class FormValidator {
         // У каждой формы отменим стандартное поведение
         evt.preventDefault();
       });
+      // подпишемся на событе сброса формы (reset)
+      this._formElement.addEventListener("reset", () => {
+        this.resetValidation();
+      });
     });
+  }
+
+  /**
+   * Публичный метод очистки полей ввола и дизактивации кнопки сохранения
+   * Методл приводит форму в начальное, сброшенное состояние, когба поля еще не заполнены или не отредактированы
+   */
+  resetValidation() {
+    // сбрасываем все поля ввода на форме
+    this._inputList.forEach((inputElement) => {
+      const errorElement = this._formElement.querySelector(
+        `#${inputElement.id}-error`
+      );
+      this._hideInputError(inputElement, errorElement);
+    });
+    // сброс всегда приводит к неактивной кнопке
+    this._disableButton();
   }
 
   //включение валидации
